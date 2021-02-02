@@ -2,6 +2,9 @@
 A test Django site for development purposes. Once set up, it can be found at:
 `http://localhost`.
 
+- [Installation](#installation)
+- [Admin Site](#admin-site)
+
 ## Installation
 First, set up the `.env` file with:
 ```
@@ -32,3 +35,7 @@ To collect static assets, run:
 ```
 make collectstatic
 ```
+
+## Admin Site
+The admin site, for managing your data, can be found at `http://localhost/admin` 
+and can be accessed using your superuser credentials.
