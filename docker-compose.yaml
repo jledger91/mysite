@@ -28,7 +28,6 @@ services:
       - ./data/postgresql/:/var/lib/postgresql/data
 
   nginx:
-    container_name: nginx
     image: nginx:latest
     ports:
       - "0.0.0.0:80:80"
