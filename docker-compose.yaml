@@ -16,7 +16,7 @@ services:
       - STATIC_ROOT=${STATIC_ROOT}
     volumes:
       - ./backend/src/:/django/src
-      - ./data/static/:/www/static
+      - ./data/static/:${STATIC_ROOT}
 
   postgres:
     image: postgres:latest
