@@ -4,6 +4,8 @@ A test Django site for development purposes. Once set up, it can be found at:
 
 - [Installation](#installation)
 - [Admin Site](#admin-site)
+- [API](#api)
+- [Django Shell](#django-shell)
 
 ## Installation
 First, set up the `.env` file with:
@@ -39,3 +41,12 @@ make collectstatic
 ## Admin Site
 The admin site, for managing your data, can be found at `http://localhost/admin` 
 and can be accessed using your superuser credentials.
+
+## API
+The API can be accessed at `http://localhost/api/`.
+
+## Django Shell
+To interact with your data via Django's shell, run:
+```
+make shell
+```

@@ -14,3 +14,6 @@ makemigrations:
 
 migrate:
 	docker-compose run django bash -c "python3 manage.py migrate"
+
+shell:
+	docker-compose run django bash -c "python3 manage.py shell_plus"
