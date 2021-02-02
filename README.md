@@ -27,3 +27,8 @@ To create an admin account, run:
 ```
 make createsuperuser
 ```
+
+To collect static assets, run:
+```
+make collectstatic
+```
