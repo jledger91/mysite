@@ -1,6 +1,6 @@
 # My Site
 A test Django site for development purposes. Once set up, it can be found at:
-`http://localhost:8000`.
+`http://localhost`.
 
 ## Installation
 First, set up the `.env` file with:
