@@ -3,6 +3,9 @@ env:
 	cp .env.template .env
 
 # Django
+collectstatic:
+	docker-compose run django bash -c "python3 manage.py collectstatic"
+
 createsuperuser:
 	docker-compose run django bash -c "python3 manage.py createsuperuser"
 
