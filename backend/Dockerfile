@@ -5,9 +5,10 @@ RUN apt-get update
 RUN mkdir /django
 
 ADD src /django/src
-ADD requirements.txt /django/requirements.txt
+ADD requirements/ /django/requirements
 
-RUN pip3 install -r /django/requirements.txt
+ARG DEPLOYMENT_ENVIRONMENT
+RUN pip3 install -r /django/requirements/${DEPLOYMENT_ENVIRONMENT}.txt
 
 WORKDIR /django/src
 

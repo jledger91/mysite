@@ -5,10 +5,13 @@ services:
   django:
     build:
       context: backend
+      args:
+        - DEPLOYMENT_ENVIRONMENT=${DEPLOYMENT_ENVIRONMENT}
     depends_on:
       - postgres
     environment:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_SETTINGS_MODULE=project.settings.${DEPLOYMENT_ENVIRONMENT}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

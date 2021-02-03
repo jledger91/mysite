@@ -3,6 +3,7 @@
 
 # Local data.
 /data/
+/.tox/
 
 # Pycache and .pyc files.
 /__pycache__/
