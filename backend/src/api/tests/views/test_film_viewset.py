@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from mysite.factories import FilmFactory
+from mysite.factories import FilmFactory, UserFactory
 
 
 class TestFilmViewSet(TestCase):
@@ -25,7 +25,7 @@ class TestFilmViewSet(TestCase):
         assert response.status_code == 403
 
     def test_films_post_as_authenticated_user(self):
-        user = User.objects.create(username='john-doe', password='password')
+        user = UserFactory(password='password')
 
         client = Client()
         client.login(username=user.username, password='password')
@@ -68,10 +68,7 @@ class TestFilmViewSet(TestCase):
 
     def test_films_patch_as_authenticated_user(self):
         film = FilmFactory()
-        user = User.objects.create(
-            username='user',
-            password='password',
-        )
+        user = UserFactory(password='password')
 
         client = Client()
         client.login(username=user.username, password='password')
@@ -119,10 +116,7 @@ class TestFilmViewSet(TestCase):
 
     def test_films_delete_as_authenticated_user(self):
         film = FilmFactory()
-        user = User.objects.create(
-            username='user',
-            password='password',
-        )
+        user = UserFactory(password='password')
 
         client = Client()
         client.login(username=user.username, password='password')
