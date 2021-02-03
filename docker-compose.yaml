@@ -2,13 +2,21 @@ version: '3'
 
 services:
 
+  nginx:
+    image: nginx:latest
+    ports:
+      - "0.0.0.0:80:80"
+    depends_on:
+      - django
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./data/static/:/www/static
+
   django:
     build:
       context: backend
       args:
         - DEPLOYMENT_ENVIRONMENT=${DEPLOYMENT_ENVIRONMENT}
-    depends_on:
-      - postgres
     environment:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - DJANGO_SETTINGS_MODULE=project.settings.${DEPLOYMENT_ENVIRONMENT}
@@ -17,6 +25,8 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_USER=${POSTGRES_USER}
       - STATIC_ROOT=${STATIC_ROOT}
+    depends_on:
+      - postgres
     volumes:
       - ./backend/src/:/django/src
       - ./data/static/:${STATIC_ROOT}
@@ -29,13 +39,3 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
     volumes:
       - ./data/postgresql/:/var/lib/postgresql/data
-
-  nginx:
-    image: nginx:latest
-    ports:
-      - "0.0.0.0:80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./data/static/:/www/static
-    depends_on:
-      - django
