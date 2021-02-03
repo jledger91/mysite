@@ -2,8 +2,8 @@ from rest_framework import permissions
 
 
 class IsAdminUserOrReadOnly(permissions.BasePermission):
-    """Permission class that applies Read-Only status to
-    all users except admins.
+    """Permission class that applies Read-Only status to all users
+    except admins.
     """
 
     def has_permission(self, request, view):
