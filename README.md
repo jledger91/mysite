@@ -3,6 +3,7 @@ A test Django site for development purposes. Once set up, it can be found at:
 `http://localhost`.
 
 - [Installation](#installation)
+- [Tests](#tests)
 - [Admin Site](#admin-site)
 - [API](#api)
 - [Django Shell](#django-shell)
@@ -36,6 +37,12 @@ make createsuperuser
 To collect static assets, run:
 ```
 make collectstatic
+```
+
+## Tests
+To run the test suits, use:
+```
+make test
 ```
 
 ## Admin Site
