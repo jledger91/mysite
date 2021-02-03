@@ -2,12 +2,15 @@
 A test Django site for development purposes. Once set up, it can be found at:
 `http://localhost`.
 
-- [Features in Consideration](#)
-- [Installation](#installation)
-- [Tests](#tests)
-- [Admin Site](#admin-site)
-- [API](#api)
-- [Django Shell](#django-shell)
+- [Features in Consideration](#features-in-consideration)
+- [Overview](#overview)
+  - [Admin Site](#admin-site)
+  - [API](#api)
+- [Development](#development)
+  - [Installation](#installation)
+  - [Tests](#tests)
+  - [Django Shell](#django-shell)
+
 
 ## Features in Consideration
 The site is now heading in the direction of a film review website, à la _Rotten
@@ -25,7 +28,20 @@ Tomatoes_. Here are some proposed plans for it:
     https://demos.creative-tim.com/material-kit-react/?_ga=2.65695594.538724389.1612323036-1959417379.1612323036#/
   ) is apparently regarded quite highly, so it's worth a look.
 
-## Installation
+
+## Overview
+
+### Admin Site
+The admin site, for managing your data, can be found at `http://localhost/admin` 
+and can be accessed using your superuser credentials.
+
+### API
+The API can be accessed at `http://localhost/api/`.
+
+
+## Development
+
+### Installation
 First, set up the `.env` file with:
 ```
 make env
@@ -56,20 +72,13 @@ To collect static assets, run:
 make collectstatic
 ```
 
-## Tests
+### Tests
 To run the test suits, use:
 ```
 make test
 ```
 
-## Admin Site
-The admin site, for managing your data, can be found at `http://localhost/admin` 
-and can be accessed using your superuser credentials.
-
-## API
-The API can be accessed at `http://localhost/api/`.
-
-## Django Shell
+### Django Shell
 To interact with your data via Django's shell, run:
 ```
 make shell
