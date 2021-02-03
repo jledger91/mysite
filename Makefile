@@ -6,6 +6,12 @@ env:
 collectstatic:
 	docker-compose run django bash -c "python3 manage.py collectstatic"
 
+createsampledata:
+	docker-compose run django bash -c "python3 manage.py createsampledata"
+
+flush-and-createsampledata:
+	docker-compose run django bash -c "python3 manage.py createsampledata --flush"
+
 createsuperuser:
 	docker-compose run django bash -c "python3 manage.py createsuperuser"
 

@@ -1,2 +1,2 @@
-from api.serializers.film import FilmSerializer
-from api.serializers.review import ReviewSerializer
+from api.serializers.film import *
+from api.serializers.review import *

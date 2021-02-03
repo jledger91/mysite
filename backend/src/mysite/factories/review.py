@@ -1,4 +1,4 @@
-import factory.fuzzy
+import factory
 
 from mysite.factories import FilmFactory, UserFactory
 from mysite.models import Review
@@ -12,5 +12,5 @@ class ReviewFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     film = factory.SubFactory(FilmFactory)
-    review = 'Lorem Ipsum ' * 5
-    rating = factory.fuzzy.FuzzyInteger(low=0, high=10)
+    review = factory.Faker('paragraph', nb_sentences=30)
+    rating = factory.Faker('random_int', min=0, max=10)

@@ -13,8 +13,8 @@ A test Django site for development purposes. Once set up, it can be found at:
 
 
 ## Features in Consideration
-The site is now heading in the direction of a film review website, à la _Rotten
-Tomatoes_. Here are some proposed plans for it:
+The site is now heading in the direction of a film review website, à la [Rotten
+Tomatoes](https://www.rottentomatoes.com/). Here are some proposed plans for it:
 
 - Separating the film and review functionality into separate apps? The idea for
   an app is to do one thing and one thing _well_, so perhaps having one app 
@@ -22,7 +22,7 @@ Tomatoes_. Here are some proposed plans for it:
   sense.
 - Models for cast and crew.
 - An app for recommendations based on film tags? Could be cool to combine this
-  with _Netflix_ style machine learning in order to recommend viewers films to
+  with [Netflix](https://www.netflix.com) style machine learning in order to recommend viewers films to
   see (and review).
 - A React front-end is on the way, it just needs some designing. JavaScript or
   TypeScript? Functional or Class components? What toolkit? [Material Kit React](
@@ -71,6 +71,17 @@ make createsuperuser
 To collect static assets, run:
 ```
 make collectstatic
+```
+
+To add sample data to your database, run:
+```
+make createsampledata
+```
+
+To create a fresh selection of sample data (wiping your existing data, except 
+any superusers), run:
+```
+make flush-and-createsampledata
 ```
 
 ### Tests

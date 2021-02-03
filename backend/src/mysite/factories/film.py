@@ -1,6 +1,4 @@
-from datetime import datetime
-
-import factory.fuzzy
+import factory
 
 from mysite.models import Film
 
@@ -11,10 +9,10 @@ class FilmFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Film
 
-    title = 'Test Film'
-    release_date = datetime.now()
-    duration = '02:30:00'
-    synopsis = 'Lorem Ipsum ' * 5
-    rating = factory.fuzzy.FuzzyChoice([
-        rating[0] for rating in Film.RATING_CHOICES
-    ])
+    title = factory.Faker('sentence', nb_words=5)
+    release_date = factory.Faker('date_object')
+    duration = factory.Faker('time')
+    synopsis = factory.Faker('paragraph', nb_sentences=10)
+    rating = factory.Faker(
+        'random_element', elements=[r[0] for r in Film.RATING_CHOICES]
+    )
