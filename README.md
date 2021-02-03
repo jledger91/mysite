@@ -20,6 +20,7 @@ Tomatoes_. Here are some proposed plans for it:
   an app is to do one thing and one thing _well_, so perhaps having one app 
   to serve as a film catalogue and another to serve as a film review app makes
   sense.
+- Models for cast and crew.
 - An app for recommendations based on film tags? Could be cool to combine this
   with _Netflix_ style machine learning in order to recommend viewers films to
   see (and review).
