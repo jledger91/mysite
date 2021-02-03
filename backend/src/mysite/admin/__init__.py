@@ -1,2 +1,2 @@
-from mysite.admin.film import FilmAdmin
-from mysite.admin.review import ReviewAdmin
+from mysite.admin.film import *
+from mysite.admin.review import *

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-import factory.fuzzy
+import factory
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -14,7 +14,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     username = factory.LazyAttribute(
         lambda x: f'{x.first_name.lower()}_{x.last_name.lower()}'
     )
-    password = 'password'
+    password = factory.Faker('password')
     email = factory.LazyAttribute(
         lambda x: f'{x.username}@example.org'
     )
