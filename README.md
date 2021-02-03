@@ -63,14 +63,14 @@ To migrate the database, run:
 make migrate
 ```
 
-To create an admin account, run:
-```
-make createsuperuser
-```
-
 To collect static assets, run:
 ```
 make collectstatic
+```
+
+To create an admin account, run:
+```
+make createsuperuser
 ```
 
 To add sample data to your database, run:
