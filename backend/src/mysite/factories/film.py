@@ -6,13 +6,13 @@ from mysite.models import Film
 
 
 class FilmFactory(factory.django.DjangoModelFactory):
-    """A film."""
+    """A film factory."""
 
     class Meta:
         model = Film
 
     title = 'Test Film'
-    release_date = factory.LazyFunction(datetime.now)
+    release_date = datetime.now()
     duration = '02:30:00'
     synopsis = 'Lorem Ipsum ' * 5
     rating = factory.fuzzy.FuzzyChoice([
