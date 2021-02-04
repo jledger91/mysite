@@ -23,9 +23,19 @@ class TestReviewViewSet(TestCase):
         assert response.status_code == 200
 
     def test_review_post_as_unauthenticated_user(self):
+        user = UserFactory()
+        film = FilmFactory()
+
         client = Client()
 
-        response = client.post(reverse('api:review-list'), data={})
+        review = {
+            'user': user.pk,
+            'film': film.pk,
+            'rating': 10,
+            'review': 'Thumbs up.'
+        }
+
+        response = client.post(reverse('api:review-list'), data=review)
         assert response.status_code == 403
 
     def test_review_post_for_newly_reviewed_film_as_authenticated_user(self):
@@ -96,15 +106,15 @@ class TestReviewViewSet(TestCase):
         )
         assert response.status_code == 200
 
-    def test_review_patch_as_admin_user(self):
+    def test_review_patch_as_staff_user(self):
         review = ReviewFactory()
-        admin = User.objects.create_superuser(
-            username='admin',
-            password='password',
-        )
+        
+        staff_user = UserFactory()
+        staff_user.is_staff = True
+        staff_user.save()
 
         client = Client()
-        client.force_login(admin)
+        client.force_login(staff_user)
 
         review_edit = {
             'title': 'TestReviewEdit',
@@ -138,15 +148,15 @@ class TestReviewViewSet(TestCase):
         )
         assert response.status_code == 204
 
-    def test_review_delete_as_admin_user(self):
+    def test_review_delete_as_staff_user(self):
         review = ReviewFactory()
-        admin = User.objects.create_superuser(
-            username='admin',
-            password='password',
-        )
+
+        staff_user = UserFactory()
+        staff_user.is_staff = True
+        staff_user.save()
 
         client = Client()
-        client.force_login(admin)
+        client.force_login(staff_user)
 
         response = client.delete(
             reverse('api:review-detail', args=[review.pk])
