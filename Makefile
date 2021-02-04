@@ -3,19 +3,19 @@ env:
 	cp .env.template .env
 
 # Django
-collectstatic:
+collect-static:
 	docker-compose run django bash -c "python3 manage.py collectstatic"
 
-createsampledata:
+create-sample-data:
 	docker-compose run django bash -c "python3 manage.py createsampledata"
 
-flush-and-createsampledata:
+flush-and-create-sample-data:
 	docker-compose run django bash -c "python3 manage.py createsampledata --flush"
 
-createsuperuser:
+create-super-user:
 	docker-compose run django bash -c "python3 manage.py createsuperuser"
 
-makemigrations:
+make-migrations:
 	docker-compose run django bash -c "python3 manage.py makemigrations"
 
 migrate:
@@ -26,3 +26,10 @@ shell:
 
 test:
 	docker-compose run django bash -c "python3 manage.py test"
+
+# Docker
+build:
+	docker-compose build
+
+up:
+	docker-compose up
