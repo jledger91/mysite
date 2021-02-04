@@ -12,10 +12,6 @@ from mysite.factories import (
 class TestReviewViewSet(TestCase):
     """Test class for the ReviewViewSet."""
 
-    # FIXME: Why does client.login() not work here? Having to use
-    #  client.force_login() for the time being. Also, perhaps these
-    #  should be APITestCases and use tokens instead. Or both?
-
     def test_review_get_as_unauthenticated_user(self):
         review = ReviewFactory()
         client = Client()
@@ -108,7 +104,7 @@ class TestReviewViewSet(TestCase):
         )
 
         client = Client()
-        client.login(username=admin.username, password='password')
+        client.force_login(admin)
 
         review_edit = {
             'title': 'TestReviewEdit',
@@ -135,7 +131,7 @@ class TestReviewViewSet(TestCase):
         review = ReviewFactory(user=user)
 
         client = Client()
-        client.force_login(user=user)
+        client.force_login(user)
 
         response = client.delete(
             reverse('api:review-detail', args=[review.pk])
@@ -150,7 +146,7 @@ class TestReviewViewSet(TestCase):
         )
 
         client = Client()
-        client.login(username=admin.username, password='password')
+        client.force_login(admin)
 
         response = client.delete(
             reverse('api:review-detail', args=[review.pk])

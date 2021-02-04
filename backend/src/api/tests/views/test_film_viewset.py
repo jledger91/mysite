@@ -28,7 +28,7 @@ class TestFilmViewSet(TestCase):
         user = UserFactory(password='password')
 
         client = Client()
-        client.login(username=user.username, password='password')
+        client.force_login(user)
 
         response = client.post(reverse('api:film-list'), data={})
         assert response.status_code == 403
@@ -40,7 +40,7 @@ class TestFilmViewSet(TestCase):
         )
 
         client = Client()
-        client.login(username=admin.username, password='password')
+        client.force_login(admin)
 
         film = {
             'title': 'TestFilm',
@@ -71,7 +71,7 @@ class TestFilmViewSet(TestCase):
         user = UserFactory(password='password')
 
         client = Client()
-        client.login(username=user.username, password='password')
+        client.force_login(user)
 
         film_edit = {
             'title': 'TestFilmEdit',
@@ -92,7 +92,7 @@ class TestFilmViewSet(TestCase):
         )
 
         client = Client()
-        client.login(username=admin.username, password='password')
+        client.force_login(admin)
 
         film_edit = {
             'title': 'TestFilmEdit',
@@ -119,7 +119,7 @@ class TestFilmViewSet(TestCase):
         user = UserFactory(password='password')
 
         client = Client()
-        client.login(username=user.username, password='password')
+        client.force_login(user)
 
         response = client.delete(
             reverse('api:film-detail', args=[film.pk])
@@ -134,7 +134,7 @@ class TestFilmViewSet(TestCase):
         )
 
         client = Client()
-        client.login(username=admin.username, password='password')
+        client.force_login(admin)
 
         response = client.delete(
             reverse('api:film-detail', args=[film.pk])
