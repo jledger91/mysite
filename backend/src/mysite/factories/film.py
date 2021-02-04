@@ -9,7 +9,7 @@ class FilmFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Film
 
-    title = factory.Faker('sentence', nb_words=5)
+    title = factory.Faker('sentence', nb_words=3)
     release_date = factory.Faker('date_object')
     duration = factory.Faker('time')
     synopsis = factory.Faker('paragraph', nb_sentences=10)
