@@ -101,7 +101,7 @@ make create-sample-data
 ```
 
 To create a fresh selection of sample data (wiping your existing data, except 
-any superusers), run:
+any staff or superuser profiles), run:
 ```
 make flush-and-create-sample-data
 ```

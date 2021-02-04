@@ -35,8 +35,10 @@ def create_sample_data() -> None:
         ReviewFactory(user=user, film=film)
 
 
-def flush_all_but_superusers() -> None:
-    """Flushes all data from the database, except superuser accounts."""
+def flush_all_but_staff_and_superusers() -> None:
+    """Flushes all data from the database, except staff and superuser
+    accounts.
+    """
 
     Film.objects.all().delete()
-    User.objects.filter(is_superuser=False).delete()
+    User.objects.filter(is_staff=False, is_superuser=False).delete()
