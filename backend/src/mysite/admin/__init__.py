@@ -1,2 +1,2 @@
-from mysite.admin.film import *
-from mysite.admin.review import *
+from .film import *
+from .review import *

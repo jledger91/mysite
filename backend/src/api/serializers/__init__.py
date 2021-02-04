@@ -1,3 +1,3 @@
-from api.serializers.film import *
-from api.serializers.review import *
-from api.serializers.user import *
+from .film import *
+from .review import *
+from .user import *

@@ -1,1 +1,1 @@
-from mysite.utils.create_sample_data import *
+from .create_sample_data import *
