@@ -5,7 +5,7 @@ from mysite.models import Review
 
 
 class ReviewFactory(factory.django.DjangoModelFactory):
-    """A film factory."""
+    """A Review factory."""
 
     class Meta:
         model = Review

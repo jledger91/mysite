@@ -4,7 +4,7 @@ import factory
 
 
 class UserFactory(factory.django.DjangoModelFactory):
-    """A film factory."""
+    """A User factory."""
 
     class Meta:
         model = User

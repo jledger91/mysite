@@ -3,7 +3,7 @@ from django.utils.translation import gettext as _
 
 
 class Film(models.Model):
-    """The film model, housing a film's metadata."""
+    """A model for a film."""
 
     RATING_CHOICES = (
         ('U', _('U')),

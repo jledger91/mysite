@@ -4,7 +4,7 @@ from mysite.models import Film
 
 
 class FilmFactory(factory.django.DjangoModelFactory):
-    """A film factory."""
+    """A Film factory."""
 
     class Meta:
         model = Film
