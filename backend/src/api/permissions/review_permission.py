@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 
-class IsReviewerOrReadOnly(permissions.BasePermission):
+class ReviewPermission(permissions.BasePermission):
     """Permission class that applies Read-Only status to reviews for
     all users except staff and the reviewer.
 
@@ -34,4 +34,6 @@ class IsReviewerOrReadOnly(permissions.BasePermission):
                     or request.user.is_staff
             ))
 
-        return bool(request.user and request.user == obj.user)
+        return bool(request.user and (
+                request.user == obj.user or request.user.is_superuser
+        ))
