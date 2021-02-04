@@ -1,2 +1,2 @@
-from mysite.models.film import *
-from mysite.models.review import *
+from .film import *
+from .review import *

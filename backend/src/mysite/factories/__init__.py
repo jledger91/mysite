@@ -1,3 +1,3 @@
-from mysite.factories.user import *
-from mysite.factories.film import *
-from mysite.factories.review import *
+from .user import *
+from .film import *
+from .review import *
