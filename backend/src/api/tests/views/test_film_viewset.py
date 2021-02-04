@@ -21,26 +21,37 @@ class TestFilmViewSet(TestCase):
     def test_films_post_as_unauthenticated_user(self):
         client = Client()
 
-        response = client.post(reverse('api:film-list'), data={})
+        film = {
+            'title': 'TestFilm',
+            'release_date': '2020-01-01',
+            'duration': '02:30:00',
+        }
+
+        response = client.post(reverse('api:film-list'), data=film)
         assert response.status_code == 403
 
     def test_films_post_as_authenticated_user(self):
-        user = UserFactory(password='password')
+        user = UserFactory()
 
         client = Client()
         client.force_login(user)
 
-        response = client.post(reverse('api:film-list'), data={})
+        film = {
+            'title': 'TestFilm',
+            'release_date': '2020-01-01',
+            'duration': '02:30:00',
+        }
+
+        response = client.post(reverse('api:film-list'), data=film)
         assert response.status_code == 403
 
-    def test_films_post_as_admin_user(self):
-        admin = User.objects.create_superuser(
-            username='admin',
-            password='password',
-        )
+    def test_films_post_as_staff_user(self):
+        staff_user = UserFactory()
+        staff_user.is_staff = True
+        staff_user.save()
 
         client = Client()
-        client.force_login(admin)
+        client.force_login(staff_user)
 
         film = {
             'title': 'TestFilm',
@@ -68,7 +79,7 @@ class TestFilmViewSet(TestCase):
 
     def test_films_patch_as_authenticated_user(self):
         film = FilmFactory()
-        user = UserFactory(password='password')
+        user = UserFactory()
 
         client = Client()
         client.force_login(user)
@@ -84,15 +95,15 @@ class TestFilmViewSet(TestCase):
         )
         assert response.status_code == 403
 
-    def test_films_patch_as_admin_user(self):
+    def test_films_patch_as_staff_user(self):
         film = FilmFactory()
-        admin = User.objects.create_superuser(
-            username='admin',
-            password='password',
-        )
+
+        staff_user = UserFactory()
+        staff_user.is_staff = True
+        staff_user.save()
 
         client = Client()
-        client.force_login(admin)
+        client.force_login(staff_user)
 
         film_edit = {
             'title': 'TestFilmEdit',
@@ -116,7 +127,7 @@ class TestFilmViewSet(TestCase):
 
     def test_films_delete_as_authenticated_user(self):
         film = FilmFactory()
-        user = UserFactory(password='password')
+        user = UserFactory()
 
         client = Client()
         client.force_login(user)
@@ -126,15 +137,15 @@ class TestFilmViewSet(TestCase):
         )
         assert response.status_code == 403
 
-    def test_films_delete_as_admin_user(self):
+    def test_films_delete_as_staff_user(self):
         film = FilmFactory()
-        admin = User.objects.create_superuser(
-            username='admin',
-            password='password',
-        )
+
+        staff_user = UserFactory()
+        staff_user.is_staff = True
+        staff_user.save()
 
         client = Client()
-        client.force_login(admin)
+        client.force_login(staff_user)
 
         response = client.delete(
             reverse('api:film-detail', args=[film.pk])

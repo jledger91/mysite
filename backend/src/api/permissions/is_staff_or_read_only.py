@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 
-class IsAdminUserOrReadOnly(permissions.BasePermission):
+class IsStaffOrReadOnly(permissions.BasePermission):
     """Permission class that applies Read-Only status to all users
     except admins.
     """
