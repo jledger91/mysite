@@ -6,7 +6,7 @@ from rest_framework import viewsets
 
 from api.filters import UserFilter
 from api.permissions import IsSelfOrReadOnly, IsSuperuser
-from api.serializers import UserSerializer, UserSerializerForSuperuser
+from api.serializers import UserSerializer, UserForSuperuserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -25,5 +25,5 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         if self.request.user.is_superuser:
-            return UserSerializerForSuperuser
+            return UserForSuperuserSerializer
         return self.serializer_class
