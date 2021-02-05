@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     # MySite apps
-    'api',
-    'mysite',
+    'api.apps.ApiConfig',
+    'mysite.apps.MySiteConfig',
 ]
 
 REST_FRAMEWORK = {
