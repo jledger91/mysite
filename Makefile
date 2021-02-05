@@ -10,6 +10,7 @@ create-sample-data:
 	docker-compose run django bash -c "python3 manage.py createsampledata"
 
 flush-and-create-sample-data:
+	rm --force data/media/posters/*
 	docker-compose run django bash -c "python3 manage.py createsampledata --flush"
 
 create-super-user:
