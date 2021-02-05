@@ -4,16 +4,16 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import viewsets
 
+from api import serializers
 from api.filters import UserFilter
 from api.permissions import IsSelfOrReadOnly, IsSuperuser
-from api.serializers import UserSerializer, UserForSuperuserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
     """View set for the User model."""
 
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = serializers.UserSerializer
     permission_classes = [IsSelfOrReadOnly | IsSuperuser]
     filter_backends = [DjangoFilterBackend]
     filterset_class = UserFilter
@@ -25,5 +25,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         if self.request.user.is_superuser:
-            return UserForSuperuserSerializer
+            return serializers.UserForSuperuserSerializer
+        if self.request.method in ('PATCH', 'POST', 'PUT',):
+            return serializers.UserRegistrationSerializer
         return self.serializer_class
