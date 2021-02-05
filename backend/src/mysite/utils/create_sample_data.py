@@ -2,8 +2,6 @@ from django.contrib.auth.models import User
 
 import random
 
-from rest_framework.authtoken.models import Token
-
 from mysite.factories import (
     FilmFactory,
     ReviewFactory,
@@ -16,8 +14,7 @@ def create_sample_data() -> None:
     """Populates the database with random data."""
 
     for _ in range(10):
-        user = UserFactory()
-        Token.objects.create(user=user)
+        UserFactory()
         FilmFactory()
 
     users = User.objects.filter(is_superuser=False)
