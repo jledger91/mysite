@@ -1,10 +1,9 @@
-# Environment file.
+# environment file
 .env
 
-# Local data.
+# local data
 /data/
-/.tox/
 
-# Pycache and .pyc files.
-/__pycache__/
+# pycache and .pyc files
+*/__pycache__/
 *.pyc

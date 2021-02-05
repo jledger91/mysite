@@ -10,6 +10,8 @@ A test Django site for development purposes. Once set up, it can be found at:
 - [Development](#development)
   - [Dependencies](#dependencies)
   - [Installation](#installation)
+    - [Backend](#backend)
+    - [Frontend](#frontend)
   - [Creating Sample Data](#creating-sample-data)
   - [Tests](#tests)
   - [Django Shell](#django-shell)
@@ -50,8 +52,9 @@ The API can be accessed at `http://localhost/api/`.
 
 ### Dependencies
 
-- Docker
-- docker-compose
+- Docker (19.03.8)
+- docker-compose (1.25.0)
+- Nodejs (v10.19.0)
 
 **Note: Any `make` commands involving _docker-compose_ may require `sudo` 
 (assuming Linux or macOS), depending on your local setup.**
@@ -73,6 +76,8 @@ To spin up the containers, run:
 make up
 ```
 
+#### Backend
+
 To make migration files, run:
 ```
 make make-migrations
@@ -86,6 +91,18 @@ make migrate
 To collect static assets, run:
 ```
 make collect-static
+```
+
+#### Frontend
+
+To install necessary node modules, run:
+```
+make install-ui-modules
+```
+
+To start the React development server, run:
+```
+make start-ui-server
 ```
 
 ### Creating Sample Data
@@ -108,7 +125,7 @@ make flush-and-create-sample-data
 
 ### Tests
 
-To run the test suite, use:
+To run the Django test suite, use:
 ```
 make test
 ```
