@@ -34,3 +34,10 @@ build:
 
 up:
 	docker-compose up
+
+# React
+install-ui-modules:
+	cd frontend; npm install
+
+start-ui-server:
+	cd frontend; npm start
