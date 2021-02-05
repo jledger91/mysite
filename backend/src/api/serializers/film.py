@@ -11,6 +11,7 @@ class FilmSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'title',
+            'poster',
             'release_date',
             'duration',
             'synopsis',
