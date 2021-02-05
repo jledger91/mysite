@@ -15,7 +15,7 @@ class Film(models.Model):
     )
 
     title = models.CharField(max_length=200, null=False)
-    poster = models.ImageField(upload_to='posters', blank=True)
+    poster = models.ImageField(upload_to='posters/', blank=True)
     release_date = models.DateField()
     duration = models.DurationField(blank=True)
     synopsis = models.TextField(blank=True)
