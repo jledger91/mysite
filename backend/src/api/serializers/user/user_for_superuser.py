@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
 
-from rest_framework import serializers
+from api.serializers.user import UserSerializer
 
 
-class UserForSuperuserSerializer(serializers.ModelSerializer):
+class UserForSuperuserSerializer(UserSerializer):
     """Serializer for the User model, with extended powers for
     superusers.
     """
