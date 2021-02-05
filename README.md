@@ -108,7 +108,7 @@ make flush-and-create-sample-data
 
 ### Tests
 
-To run the test suits, use:
+To run the test suite, use:
 ```
 make test
 ```
