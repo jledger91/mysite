@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -13,7 +12,8 @@ class TestReviewViewSet(TestCase):
     """Test class for the ReviewViewSet."""
 
     def test_review_get_as_unauthenticated_user(self):
-        review = ReviewFactory()
+        film = FilmFactory(poster=None)
+        review = ReviewFactory(film=film)
         client = Client()
 
         response = client.get(reverse('api:review-list'))
@@ -24,7 +24,7 @@ class TestReviewViewSet(TestCase):
 
     def test_review_post_as_unauthenticated_user(self):
         user = UserFactory()
-        film = FilmFactory()
+        film = FilmFactory(poster=None)
 
         client = Client()
 
@@ -40,7 +40,7 @@ class TestReviewViewSet(TestCase):
 
     def test_review_post_for_newly_reviewed_film_as_authenticated_user(self):
         user = UserFactory()
-        film = FilmFactory()
+        film = FilmFactory(poster=None)
 
         client = Client()
         client.force_login(user=user)
@@ -57,7 +57,7 @@ class TestReviewViewSet(TestCase):
 
     def test_review_post_for_previously_reviewed_film_as_authenticated_user(self):
         user = UserFactory()
-        film = FilmFactory()
+        film = FilmFactory(poster=None)
         ReviewFactory(user=user, film=film)
 
         client = Client()
@@ -74,7 +74,8 @@ class TestReviewViewSet(TestCase):
         assert response.status_code == 400
 
     def test_review_patch_as_unauthenticated_user(self):
-        review = ReviewFactory()
+        film = FilmFactory(poster=None)
+        review = ReviewFactory(film=film)
         client = Client()
 
         review_edit = {
@@ -90,7 +91,8 @@ class TestReviewViewSet(TestCase):
 
     def test_review_patch_as_reviewer(self):
         user = UserFactory()
-        review = ReviewFactory(user=user)
+        film = FilmFactory(poster=None)
+        review = ReviewFactory(film=film, user=user)
 
         client = Client()
         client.force_login(user=user)
@@ -107,7 +109,8 @@ class TestReviewViewSet(TestCase):
         assert response.status_code == 200
 
     def test_review_patch_as_staff_user(self):
-        review = ReviewFactory()
+        film = FilmFactory(poster=None)
+        review = ReviewFactory(film=film)
         
         staff_user = UserFactory()
         staff_user.is_staff = True
@@ -128,7 +131,8 @@ class TestReviewViewSet(TestCase):
         assert response.status_code == 403
 
     def test_review_delete_as_unauthenticated_user(self):
-        review = ReviewFactory()
+        film = FilmFactory(poster=None)
+        review = ReviewFactory(film=film)
         client = Client()
 
         response = client.delete(
@@ -138,7 +142,8 @@ class TestReviewViewSet(TestCase):
 
     def test_review_delete_as_reviewer(self):
         user = UserFactory()
-        review = ReviewFactory(user=user)
+        film = FilmFactory(poster=None)
+        review = ReviewFactory(film=film, user=user)
 
         client = Client()
         client.force_login(user)
@@ -149,7 +154,8 @@ class TestReviewViewSet(TestCase):
         assert response.status_code == 204
 
     def test_review_delete_as_staff_user(self):
-        review = ReviewFactory()
+        film = FilmFactory(poster=None)
+        review = ReviewFactory(film=film)
 
         staff_user = UserFactory()
         staff_user.is_staff = True

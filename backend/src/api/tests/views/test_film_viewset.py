@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -9,7 +8,7 @@ class TestFilmViewSet(TestCase):
     """Test class for the FilmViewSet."""
 
     def test_films_get_as_unauthenticated_user(self):
-        film = FilmFactory()
+        film = FilmFactory(poster=None)
         client = Client()
 
         response = client.get(reverse('api:film-list'))
@@ -63,7 +62,7 @@ class TestFilmViewSet(TestCase):
         assert response.status_code == 201
 
     def test_films_patch_as_unauthenticated_user(self):
-        film = FilmFactory()
+        film = FilmFactory(poster=None)
         client = Client()
 
         film_edit = {
@@ -78,7 +77,7 @@ class TestFilmViewSet(TestCase):
         assert response.status_code == 403
 
     def test_films_patch_as_authenticated_user(self):
-        film = FilmFactory()
+        film = FilmFactory(poster=None)
         user = UserFactory()
 
         client = Client()
@@ -96,7 +95,7 @@ class TestFilmViewSet(TestCase):
         assert response.status_code == 403
 
     def test_films_patch_as_staff_user(self):
-        film = FilmFactory()
+        film = FilmFactory(poster=None)
 
         staff_user = UserFactory()
         staff_user.is_staff = True
@@ -117,7 +116,7 @@ class TestFilmViewSet(TestCase):
         assert response.status_code == 200
 
     def test_films_delete_as_unauthenticated_user(self):
-        film = FilmFactory()
+        film = FilmFactory(poster=None)
         client = Client()
 
         response = client.delete(
@@ -126,7 +125,7 @@ class TestFilmViewSet(TestCase):
         assert response.status_code == 403
 
     def test_films_delete_as_authenticated_user(self):
-        film = FilmFactory()
+        film = FilmFactory(poster=None)
         user = UserFactory()
 
         client = Client()
@@ -138,7 +137,7 @@ class TestFilmViewSet(TestCase):
         assert response.status_code == 403
 
     def test_films_delete_as_staff_user(self):
-        film = FilmFactory()
+        film = FilmFactory(poster=None)
 
         staff_user = UserFactory()
         staff_user.is_staff = True
