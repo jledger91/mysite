@@ -1,6 +1,6 @@
 import { ConnectedRouter } from 'connected-react-router';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { Switch } from 'react-router';
 import { Route } from 'react-router-dom';
@@ -15,10 +15,15 @@ import ReviewDetail from './views/ReviewDetail/ReviewDetail';
 import ReviewList from './views/ReviewList/ReviewList';
 import * as r from './routes';
 import { history, store } from './store';
+import { CHECK_AUTHENTICATED } from './store/modules/user/actions';
 
 import './App.scss';
 
 function App() {
+  
+  useEffect(() => {
+    store.dispatch({ type: CHECK_AUTHENTICATED });
+  }, []);
   
   const Loading = <CircularProgress/>
   

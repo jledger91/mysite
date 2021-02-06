@@ -20,5 +20,5 @@ function* getUser(action) {
 }
 
 export function* getUserSaga() {
-  yield takeLatest(GET_USER, getUser)
+  yield takeLatest(GET_USER, getUser);
 }
