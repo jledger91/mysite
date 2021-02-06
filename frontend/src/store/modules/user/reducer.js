@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS } from './actions';
+import { SET_USER } from './actions';
 
 export const initialState = {
   firstName: undefined,
@@ -8,7 +8,7 @@ export const initialState = {
 
 const userReducer = function (state = initialState, action) {
   switch (action.type) {
-    case LOGIN_SUCCESS:
+    case SET_USER:
       return {
         ...state,
         firstName: action.payload.firstName,

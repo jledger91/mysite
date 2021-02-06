@@ -1,12 +1,11 @@
 import { takeLatest } from 'redux-saga/effects';
 
-import * as http from '../../../../utils/http';
 import { LOGOUT } from '../actions';
+import * as http from '../../../../utils/http';
 
-function* logout(action) {
-  const result = yield http.post('/api/logout/', {});
-  const { status } = result;
-  if (status === 200) {
+function* logout() {
+  const result = yield http.post('/api/logout/');
+  if (result.status === 200) {
     // TODO: Toast for successful logout.
   }
 }
