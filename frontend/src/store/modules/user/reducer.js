@@ -1,4 +1,4 @@
-import { SET_USER } from './actions';
+import { LOGGED_OUT, SET_USER } from './actions';
 
 export const initialState = {
   firstName: undefined,
@@ -8,6 +8,8 @@ export const initialState = {
 
 const userReducer = function (state = initialState, action) {
   switch (action.type) {
+    case LOGGED_OUT:
+      return initialState;
     case SET_USER:
       return {
         ...state,
