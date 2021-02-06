@@ -24,35 +24,41 @@ const LoginDialog = (props) => {
   
   const handleLoginSubmit = () => {
     dispatch({ type: LOGIN, payload: { username, password }});
+    handleClose();
+  }
+  const handleUsernameChange = (event) => setUsername(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
+  const handleClose = () => {
+    setUsername(undefined);
+    setPassword(undefined);
     onClose();
   }
-  const onUsernameChange = (event) => setUsername(event.target.value);
-  const onPasswordChange = (event) => setPassword(event.target.value);
   const loginDisabled = !(username && password);
   
   return (
     <Dialog className='login-dialog'
-            onClose={onClose}
+            onClose={handleClose}
             open={open}>
       <DialogTitle className='login-title'>
-        MySite
+        Sign In
       </DialogTitle>
       <Divider/>
       <DialogContent>
         <TextField className='username-field'
                    label='Username'
-                   onChange={onUsernameChange}/>
+                   color='secondary'
+                   onChange={handleUsernameChange}/>
         <TextField className='password-field'
                    label='Password'
                    type='password'
-                   onChange={onPasswordChange}/>
+                   color='secondary'
+                   onChange={handlePasswordChange}/>
       </DialogContent>
       <DialogActions>
         <Button className='login-button'
-                color='primary'
                 onClick={handleLoginSubmit}
                 disabled={loginDisabled}>
-          Login
+          Sign in
         </Button>
       </DialogActions>
     </Dialog>

@@ -37,7 +37,7 @@ const Header = () => {
               :
               <Button color='inherit'
                       onClick={handleLoginClick}>
-                Login
+                Sign In
               </Button>
           }
         </Toolbar>
