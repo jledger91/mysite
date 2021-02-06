@@ -36,7 +36,7 @@ const LoginDialog = (props) => {
   const loginDisabled = !(username && password);
   
   return (
-    <Dialog className='login-dialog'
+    <Dialog className='login-dialog-component'
             onClose={handleClose}
             open={open}>
       <DialogTitle className='login-title'>
