@@ -4,11 +4,9 @@ import * as http from '../../../../utils/http';
 import { LOGIN, LOGIN_SUCCESS } from '../actions';
 
 function* login(action) {
-  // TODO: '/auth/login/' won't work for this purpose, so some backend
-  //  work needs to be done, then this URI can be changed.
-  const result = yield http.post('/auth/login/', {
-    username: action.username,
-    password: action.password,
+  const result = yield http.post('/api/login/', {
+    username: action.payload.username,
+    password: action.payload.password,
   });
   
   const { status, json } = result;

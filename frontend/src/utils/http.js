@@ -29,7 +29,7 @@ export const patch = async (uri, data, headers={}) => {
     headers: {
       ...headers,
       'X-CSRFToken': getCookie('csrftoken'),
-      'Context-Type': 'application/json',
+      'Content-Type': 'application/json',
     }
   })
   return await handleResponse(result);
@@ -49,7 +49,7 @@ export const post = async (uri, data, headers={}) => {
     headers: {
       ...headers,
       'X-CSRFToken': getCookie('csrftoken'),
-      'Context-Type': 'application/json',
+      'Content-Type': 'application/json',
     }
   })
   return await handleResponse(result);
