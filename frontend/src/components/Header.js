@@ -23,7 +23,7 @@ const Header = () => {
   const handleLoginDialogOnClose = () => setLoginDialogOpen(false);
   
   return (
-    <div className='header'>
+    <div className='header-component'>
       <AppBar position='static'
               className='app-bar'>
         <Toolbar>

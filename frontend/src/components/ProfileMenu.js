@@ -30,29 +30,26 @@ const ProfileMenu = () => {
   const handleClose = () => setAnchorEl(null);
   
   return (
-    <div>
-      <div>
-        <div className='profile-menu'>
-          <Typography className='username-label'>
-            { user?.username }
-          </Typography>
-          <IconButton aria-controls='fade-menu'
-                      aria-haspopup='true'
-                      onClick={handleToggle}
-                      color='inherit'>
-            <AccountCircle />
-          </IconButton>
-        </div>
-        <Menu id="fade-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={open}
-              onClose={handleClose}>
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </Menu>
-      </div>
+    <div className='profile-menu-component'>
+      <Typography className='username-label'>
+        { user?.username }
+      </Typography>
+      <IconButton className='profile-icon'
+                  aria-controls='fade-menu'
+                  aria-haspopup='true'
+                  onClick={handleToggle}
+                  color='inherit'>
+        <AccountCircle />
+      </IconButton>
+      <Menu id="fade-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={open}
+            onClose={handleClose}>
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
     </div>
   );
 }
