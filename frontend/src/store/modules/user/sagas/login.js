@@ -17,5 +17,5 @@ function* login(action) {
 }
 
 export function* loginSaga() {
-  yield takeLatest(LOGIN, login)
+  yield takeLatest(LOGIN, login);
 }

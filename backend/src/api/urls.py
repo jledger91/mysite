@@ -14,6 +14,9 @@ router.register(r'users', views.UserViewSet, basename='user')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('is_authenticated/',
+         views.IsAuthenticatedView.as_view(),
+         name='is_authenticated'),
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('token/', token_views.obtain_auth_token, name='token'),

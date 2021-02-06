@@ -11,5 +11,5 @@ function* logout() {
 }
 
 export function* logoutSaga() {
-  yield takeLatest(LOGOUT, logout)
+  yield takeLatest(LOGOUT, logout);
 }
