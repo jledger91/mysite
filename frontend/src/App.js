@@ -27,7 +27,7 @@ function App() {
     store.dispatch({ type: IS_AUTHENTICATED });
   }, []);
   
-  const Loading = <CircularProgress/>
+  const Loading = <CircularProgress/>;
   
   const routes = (<Switch>
     <Route exact path={r.home} component={Home} />

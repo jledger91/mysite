@@ -10,8 +10,8 @@ const ReviewList = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch({ type: GET_REVIEWS })
-  }, [dispatch])
+    dispatch({ type: GET_REVIEWS });
+  }, [dispatch]);
   
   return (
     <div className='review-list-view'>

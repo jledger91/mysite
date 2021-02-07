@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import {
   Button,
-  Dialog, DialogActions, DialogContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
   DialogTitle,
   Divider,
   TextField,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
 import { LOGIN } from '../store/modules/auth/actions';
 

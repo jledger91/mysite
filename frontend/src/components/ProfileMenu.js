@@ -18,7 +18,7 @@ const ProfileMenu = () => {
   const { auth } = useSelector(state => state);
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  const open = Boolean(anchorEl)
+  const open = Boolean(anchorEl);
   
   const handleToggle = (event) => setAnchorEl(event.currentTarget);
   

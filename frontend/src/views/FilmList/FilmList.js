@@ -10,8 +10,8 @@ const FilmList = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch({ type: GET_FILMS })
-  }, [dispatch])
+    dispatch({ type: GET_FILMS });
+  }, [dispatch]);
   
   return (
     <div className='film-list-view'>

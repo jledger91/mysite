@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 
 import LoginDialog from './LoginDialog';
-import ProfileMenu from "./ProfileMenu";
+import ProfileMenu from './ProfileMenu';
 
 import './Header.scss';
 

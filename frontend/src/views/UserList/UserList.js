@@ -10,8 +10,8 @@ const UserList = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch({ type: GET_USERS })
-  }, [dispatch])
+    dispatch({ type: GET_USERS });
+  }, [dispatch]);
   
   return (
     <div className='user-list-view'>
