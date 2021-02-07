@@ -15,7 +15,7 @@ import './Header.scss';
 
 const Header = () => {
   
-  const { user } = useSelector(state => state);
+  const { auth } = useSelector(state => state);
   
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   
@@ -32,7 +32,7 @@ const Header = () => {
             My Site
           </Typography>
           {
-            user?.username ?
+            auth?.username ?
               <ProfileMenu/>
               :
               <Button color='inherit'

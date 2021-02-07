@@ -5,6 +5,7 @@ import * as http from '../../../../utils/http';
 
 function* logout() {
   const result = yield http.post('/api/logout/');
+  
   if (result.status === 200) {
     yield put({ type: LOGGED_OUT })
   }
