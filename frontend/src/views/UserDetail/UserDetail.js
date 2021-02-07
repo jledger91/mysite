@@ -2,24 +2,24 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 
-import { GET_FILM } from '../../store/modules/film/actions'
+import { GET_USER } from '../../store/modules/user/actions'
 
-import './FilmDetail.scss';
+import './UserDetail.scss';
 
-const FilmDetail = () => {
-
+const UserDetail = () => {
+  
   const dispatch = useDispatch();
   const { id } = useParams();
-
+  
   useEffect(() => {
-    dispatch({ type: GET_FILM, payload: { id } })
+    dispatch({ type: GET_USER, payload: { id } })
   }, [id, dispatch])
   
   return (
-    <div className='film-detail-view'>
+    <div className='user-detail-view'>
     
     </div>
   );
 }
 
-export default FilmDetail;
+export default UserDetail;

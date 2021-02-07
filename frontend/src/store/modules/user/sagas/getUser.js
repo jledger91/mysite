@@ -4,17 +4,13 @@ import * as http from '../../../../utils/http';
 import { GET_USER, SET_USER } from '../actions';
 
 function* getUser(action) {
-  const result = yield http.get('/api/users/', {
-    username: action.payload.username,
-  });
+  const { id } = action.payload;
   
-  const user = result.json[0];
+  const result = yield http.get(`/api/users/${id}`);
   
   if (result.status === 200) {
     yield put({ type: SET_USER, payload: {
-        username: user.username,
-        firstName: user.first_name,
-        lastName: user.last_name,
+        detail: result.json,
       }});
   }
 }

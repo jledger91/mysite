@@ -14,6 +14,11 @@ class LoginView(APIView):
         user = authenticate(username=username, password=password)
         if user:
             login(self.request, user)
-            return Response({'detail': 'Success'}, status=200)
+            return Response({
+                'detail': 'Success',
+                'username': user.username,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+            }, status=200)
 
         return Response({'detail': 'Invalid credentials'}, status=400)

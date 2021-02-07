@@ -9,13 +9,13 @@ import {
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 
-import { LOGOUT } from '../store/modules/user/actions';
+import { LOGOUT } from '../store/modules/auth/actions';
 
 import './ProfileMenu.scss';
 
 const ProfileMenu = () => {
   
-  const { user } = useSelector(state => state);
+  const { auth } = useSelector(state => state);
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const open = Boolean(anchorEl)
@@ -32,7 +32,7 @@ const ProfileMenu = () => {
   return (
     <div className='profile-menu-component'>
       <Typography className='username-label'>
-        { user?.username }
+        { auth?.username }
       </Typography>
       <IconButton className='profile-icon'
                   aria-controls='fade-menu'

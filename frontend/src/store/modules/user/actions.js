@@ -1,6 +1,4 @@
-export const CHECK_AUTHENTICATED = 'CHECK_AUTHENTICATED';
 export const GET_USER = 'GET_USER';
-export const LOGGED_OUT = 'LOGGED_OUT';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export const GET_USERS = 'GET_USERS';
 export const SET_USER = 'SET_USER';
+export const SET_USERS = 'SET_USERS';

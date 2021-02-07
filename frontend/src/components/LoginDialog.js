@@ -9,7 +9,7 @@ import {
   TextField,
 } from '@material-ui/core'
 
-import { LOGIN } from '../store/modules/user/actions';
+import { LOGIN } from '../store/modules/auth/actions';
 
 import './LoginDialog.scss';
 

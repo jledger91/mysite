@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
 import * as http from '../../../../utils/http';
-import { LOGIN, GET_USER } from '../actions';
+import { LOGIN, LOGGED_IN } from '../actions';
 
 function* login(action) {
   const result = yield http.post('/api/login/', {
@@ -10,9 +10,7 @@ function* login(action) {
   });
   
   if (result.status === 200) {
-    yield put({ type: GET_USER, payload: {
-        username: action.payload.username,
-      }});
+    yield put({ type: LOGGED_IN, payload: result.json });
   }
 }
 

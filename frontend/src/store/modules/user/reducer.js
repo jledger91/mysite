@@ -1,21 +1,21 @@
-import { LOGGED_OUT, SET_USER } from './actions';
+import { SET_USER, SET_USERS } from './actions';
 
 export const initialState = {
-  firstName: undefined,
-  lastName: undefined,
-  username: undefined,
+  detail: undefined,
+  list: undefined,
 }
 
 const userReducer = function (state = initialState, action) {
   switch (action.type) {
-    case LOGGED_OUT:
-      return initialState;
     case SET_USER:
       return {
         ...state,
-        firstName: action.payload.firstName,
-        lastName: action.payload.lastName,
-        username: action.payload.username,
+        detail: action.payload.detail,
+      }
+    case SET_USERS:
+      return {
+        ...state,
+        list: action.payload.list,
       }
     default:
       return state;

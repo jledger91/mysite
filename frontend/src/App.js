@@ -13,16 +13,18 @@ import FilmDetail from './views/FilmDetail/FilmDetail';
 import FilmList from './views/FilmList/FilmList';
 import ReviewDetail from './views/ReviewDetail/ReviewDetail';
 import ReviewList from './views/ReviewList/ReviewList';
+import UserDetail from './views/UserDetail/UserDetail';
+import UserList from './views/UserList/UserList';
 import * as r from './routes';
 import { history, store } from './store';
-import { CHECK_AUTHENTICATED } from './store/modules/user/actions';
+import { IS_AUTHENTICATED } from './store/modules/auth/actions';
 
 import './App.scss';
 
 function App() {
   
   useEffect(() => {
-    store.dispatch({ type: CHECK_AUTHENTICATED });
+    store.dispatch({ type: IS_AUTHENTICATED });
   }, []);
   
   const Loading = <CircularProgress/>
@@ -33,6 +35,8 @@ function App() {
     <Route exact path={r.films} component={FilmList} />
     <Route exact path={r.review} component={ReviewDetail} />
     <Route exact path={r.reviews} component={ReviewList} />
+    <Route exact path={r.user} component={UserDetail} />
+    <Route exact path={r.users} component={UserList} />
   </Switch>);
   
   return (

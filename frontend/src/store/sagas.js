@@ -1,13 +1,15 @@
 import { all } from 'redux-saga/effects';
 
+import authSagas from './modules/auth/sagas';
+import filmSagas from './modules/film/sagas';
+import reviewSagas from './modules/review/sagas';
 import userSagas from './modules/user/sagas';
-import filmSagas from './modules/user/sagas';
-import reviewSagas from './modules/user/sagas';
 
 export function* rootSaga() {
   yield all([
-    userSagas(),
+    authSagas(),
     filmSagas(),
     reviewSagas(),
+    userSagas(),
   ])
 }
