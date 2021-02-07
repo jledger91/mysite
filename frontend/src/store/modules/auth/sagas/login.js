@@ -10,7 +10,7 @@ function* login(action) {
   });
   
   if (result.status === 200) {
-    yield put({ type: LOGGED_IN, payload: result.json });
+    yield put({ type: LOGGED_IN, payload: result.json.user });
   }
 }
 

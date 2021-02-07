@@ -16,9 +16,12 @@ class LoginView(APIView):
             login(self.request, user)
             return Response({
                 'detail': 'Success',
-                'username': user.username,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
+                'user': {
+                    'username': user.username,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'is_staff': user.is_staff,
+                }
             }, status=200)
 
         return Response({'detail': 'Invalid credentials'}, status=400)

@@ -12,9 +12,12 @@ class IsAuthenticatedView(APIView):
         if user and user.is_authenticated:
             return Response({
                 'detail': 'Logged in',
-                'username': user.username,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
+                'user': {
+                    'username': user.username,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'is_staff': user.is_staff,
+                }
             }, status=200)
 
-        return Response({'detail': 'Not logged in'}, status=400)
+        return Response({'detail': 'Not logged in'}, status=204)

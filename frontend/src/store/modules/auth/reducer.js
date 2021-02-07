@@ -11,9 +11,7 @@ const authReducer = function (state = initialState, action) {
     case LOGGED_IN:
       return {
         ...state,
-        firstName: action.payload.firstName,
-        lastName: action.payload.lastName,
-        username: action.payload.username,
+        ...action.payload,
       }
     case LOGGED_OUT:
       return initialState;
