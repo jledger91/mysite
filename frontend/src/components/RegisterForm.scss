@@ -1,0 +1,21 @@
+.register-form {
+  width: 30rem;
+
+  .form-field {
+    width: 100%;
+    height: 3rem;
+    padding-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
+  .action-area {
+    text-align: center;
+    padding-bottom: 1rem;
+    padding-top: 1.5rem;
+
+    .register-button {
+      height: 3rem;
+      width: 100%;
+    }
+  }
+}

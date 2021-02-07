@@ -1,17 +1,14 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import {
-  Button,
   Dialog,
-  DialogActions,
-  DialogContent,
   DialogTitle,
-  Divider,
-  TextField,
+  Tab,
+  Tabs,
 } from '@material-ui/core';
 
-import { LOGIN } from '../store/modules/auth/actions';
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
 import './LoginDialog.scss';
 
@@ -19,50 +16,32 @@ const LoginDialog = (props) => {
   
   const { onClose, open } = props;
   
-  const dispatch = useDispatch();
+  const [showLoginForm, setShowLoginForm] = useState(true);
   
-  const [username, setUsername] = useState(undefined);
-  const [password, setPassword] = useState(undefined);
-  
-  const handleLoginSubmit = () => {
-    dispatch({ type: LOGIN, payload: { username, password }});
-    handleClose();
+  const handleTabChange = (event, newValue) => {
+    setShowLoginForm(!Boolean(newValue));
   }
-  const handleUsernameChange = (event) => setUsername(event.target.value);
-  const handlePasswordChange = (event) => setPassword(event.target.value);
-  const handleClose = () => {
-    setUsername(undefined);
-    setPassword(undefined);
+  const handleOnClose = () => {
+    setShowLoginForm(true);
     onClose();
   }
-  const loginDisabled = !(username && password);
   
   return (
     <Dialog className='login-dialog-component'
-            onClose={handleClose}
+            onClose={onClose}
             open={open}>
-      <DialogTitle className='login-title'>
-        Sign In
+      <DialogTitle className='tabs-bar'>
+        <Tabs onChange={handleTabChange} value={showLoginForm ? 0 : 1}>
+          <Tab label='Sign in' disabled={showLoginForm}/>
+          <Tab label='Register' disabled={!showLoginForm}/>
+        </Tabs>
       </DialogTitle>
-      <Divider/>
-      <DialogContent>
-        <TextField className='username-field'
-                   label='Username'
-                   color='secondary'
-                   onChange={handleUsernameChange}/>
-        <TextField className='password-field'
-                   label='Password'
-                   type='password'
-                   color='secondary'
-                   onChange={handlePasswordChange}/>
-      </DialogContent>
-      <DialogActions>
-        <Button className='login-button'
-                onClick={handleLoginSubmit}
-                disabled={loginDisabled}>
-          Sign in
-        </Button>
-      </DialogActions>
+      {
+        showLoginForm ?
+          <LoginForm onClose={handleOnClose} />
+          :
+          <RegisterForm onClose={handleOnClose} />
+      }
     </Dialog>
   );
 }
