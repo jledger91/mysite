@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Dialog,
@@ -21,10 +21,10 @@ const LoginDialog = (props) => {
   const handleTabChange = (event, newValue) => {
     setShowLoginForm(!Boolean(newValue));
   }
-  const handleOnClose = () => {
-    setShowLoginForm(true);
-    onClose();
-  }
+
+  useEffect(() => {
+    if (open) setShowLoginForm(true);
+  }, [open]);
   
   return (
     <Dialog className='login-dialog-component'
@@ -38,9 +38,9 @@ const LoginDialog = (props) => {
       </DialogTitle>
       {
         showLoginForm ?
-          <LoginForm onClose={handleOnClose} />
+          <LoginForm onClose={onClose} />
           :
-          <RegisterForm onClose={handleOnClose} />
+          <RegisterForm onClose={onClose} />
       }
     </Dialog>
   );
