@@ -1,11 +1,12 @@
 .profile-menu-component {
   display: inline-flex;
+  margin-top: 4px;
 
   .profile-icon {
     margin-bottom: 0.4rem;
   }
 
   .username-label {
-    margin-top: 0.8rem;
+    margin-top: 12px;
   }
 }
