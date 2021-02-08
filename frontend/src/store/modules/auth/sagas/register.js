@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { LOGGED_IN, REGISTER } from '../actions';
 import * as http from '../../../../utils/http';
+import { LOGGED_IN, REGISTER } from '../actions';
 
 function* register(action) {
   const { data } = action.payload;

@@ -11,9 +11,16 @@ const filmReducer = function (state = initialState, action) {
         detail: action.payload.detail,
       }
     case SET_FILMS:
-      return {
+      const { key, list } = action.payload;
+      return  {
         ...state,
-        list: action.payload.list,
+        list: key === undefined ? {
+          ...state.list,
+          results: list
+        } : {
+          ...state.list,
+          [key]: list,
+        }
       }
     default:
       return state;

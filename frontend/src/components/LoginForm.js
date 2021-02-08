@@ -25,7 +25,7 @@ const LoginForm = (props) => {
   
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
-  const handleLoginSubmit = (username, password) => () => {
+  const handleLoginSubmit = () => {
     dispatch({ type: LOGIN, payload: { username, password }});
     onClose();
   }
@@ -50,7 +50,7 @@ const LoginForm = (props) => {
       </DialogContent>
       <DialogActions className='action-area'>
         <Button className='login-button'
-                onClick={handleLoginSubmit(username, password)}
+                onClick={handleLoginSubmit}
                 disabled={loginDisabled}>
           Sign In
         </Button>
