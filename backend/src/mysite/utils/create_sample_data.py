@@ -13,14 +13,14 @@ from mysite.models import Film, Review
 def create_sample_data() -> None:
     """Populates the database with random data."""
 
-    for _ in range(10):
+    for _ in range(50):
         UserFactory()
         FilmFactory()
 
     users = User.objects.filter(is_superuser=False)
     films = Film.objects.all()
 
-    for _ in range(30):
+    for _ in range(100):
         user_not_reviewed = False
         user, film = None, None
         while not user_not_reviewed:

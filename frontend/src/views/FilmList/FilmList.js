@@ -4,28 +4,59 @@ import './FilmList.scss';
 
 const FilmList = () => {
   
-  const latestParams = {
-    'ordering': 'release_date_desc',
-  }
-  const topParams = {
-    'ordering': 'average_score_desc',
-  }
+  const categories = [
+    {
+      key: 'latest',
+      title: 'Latest Releases',
+      params: {
+        'released_after': '2015-01-01',
+        'ordering': 'release_date_desc',
+      },
+    },
+    {
+      key: 'top',
+      title: 'Top Rated',
+      params: {
+        'min_average_score': 8,
+        'ordering': 'average_score_desc',
+      },
+    },
+    {
+      key: 'nineties',
+      title: '90\'s Films',
+      params: {
+        'released_after': '1990-01-01',
+        'released_before': '2000-01-01',
+      },
+    },
+    {
+      key: 'eighties',
+      title: '80\'s Films',
+      params: {
+        'released_after': '1980-01-01',
+        'released_before': '1990-01-01',
+      },
+    },
+    {
+      key: 'all',
+      title: 'All',
+    },
+  ]
   
   return (
     <div className='film-list-view'>
       <div className='page-header'>
       
       </div>
-      <div className='latest-films'>
-        <FilmRow title='Latest Releases'
-                 value='latest'
-                 params={latestParams} />
-      </div>
-      <div className='top-rated'>
-        <FilmRow title='Top Rated'
-                 value='top'
-                 params={topParams} />
-      </div>
+      {
+        categories.map(category =>
+          <div className={category.key}>
+            <FilmRow title={category.title}
+                     value={category.key}
+                     params={category.params} />
+          </div>
+        )
+      }
     </div>
   );
 }
