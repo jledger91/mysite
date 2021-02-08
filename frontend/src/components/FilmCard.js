@@ -21,6 +21,9 @@ const FilmCard = (props) => {
     history.push(FILM_DETAIL.replace(':id', film.id))
   }
   
+  const releaseYear = film.release_date.slice(0, 4);
+  const averageScore = film.average_score?.toFixed(1) || '--';
+  
   return (
     <div className='film-card-component'>
       <Card className='film-card'>
@@ -31,7 +34,7 @@ const FilmCard = (props) => {
       </Card>
       <Typography className='title'
                   variant='h7'>
-        {film.title} ({film.release_date.slice(0, 4)})
+        {film.title} ({releaseYear}) - ★ {averageScore}
       </Typography>
     </div>
   );
