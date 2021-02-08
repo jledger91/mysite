@@ -62,6 +62,7 @@ and can be accessed using your superuser credentials.
 - Docker (19.03.8)
 - docker-compose (1.25.0)
 - Nodejs (v10.19.0)
+- npm (6.14.4)
 
 **Note: Any `make` commands involving _docker-compose_ may require `sudo` 
 (assuming Linux or macOS), depending on your local setup.**
