@@ -8,6 +8,7 @@ import { Route } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
 
 import Header from './components/Header';
+import * as r from './routes';
 import Home from './views/Home/Home';
 import FilmDetail from './views/FilmDetail/FilmDetail';
 import FilmList from './views/FilmList/FilmList';
@@ -15,7 +16,6 @@ import ReviewDetail from './views/ReviewDetail/ReviewDetail';
 import ReviewList from './views/ReviewList/ReviewList';
 import UserDetail from './views/UserDetail/UserDetail';
 import UserList from './views/UserList/UserList';
-import * as r from './routes';
 import { history, store } from './store';
 import { IS_AUTHENTICATED } from './store/modules/auth/actions';
 
@@ -30,13 +30,13 @@ function App() {
   const Loading = <CircularProgress/>;
   
   const routes = (<Switch>
-    <Route exact path={r.home} component={Home} />
-    <Route exact path={r.film} component={FilmDetail} />
-    <Route exact path={r.films} component={FilmList} />
-    <Route exact path={r.review} component={ReviewDetail} />
-    <Route exact path={r.reviews} component={ReviewList} />
-    <Route exact path={r.user} component={UserDetail} />
-    <Route exact path={r.users} component={UserList} />
+    <Route exact path={r.HOME} component={Home} />
+    <Route exact path={r.FILM_DETAIL} component={FilmDetail} />
+    <Route exact path={r.FILM_LIST} component={FilmList} />
+    <Route exact path={r.REVIEW_DETAIL} component={ReviewDetail} />
+    <Route exact path={r.REVIEW_LIST} component={ReviewList} />
+    <Route exact path={r.USER_DETAIL} component={UserDetail} />
+    <Route exact path={r.USER_LIST} component={UserList} />
   </Switch>);
   
   return (

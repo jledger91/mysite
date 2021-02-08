@@ -1,7 +1,7 @@
-export const home = '/';
-export const film = '/films/:id';
-export const films = '/films';
-export const review = '/reviews/:id';
-export const reviews = '/reviews';
-export const user = '/users/:id';
-export const users = '/users';
+export const HOME = '/';
+export const FILM_DETAIL = '/films/:id';
+export const FILM_LIST = '/films';
+export const REVIEW_DETAIL = '/reviews/:id';
+export const REVIEW_LIST = '/reviews';
+export const USER_DETAIL = '/users/:id';
+export const USER_LIST = '/users';
