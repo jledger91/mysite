@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { LOGOUT, LOGGED_OUT } from '../actions';
 import * as http from '../../../../utils/http';
+import { LOGOUT, LOGGED_OUT } from '../actions';
 
 function* logout() {
   const result = yield http.post('/api/logout/');

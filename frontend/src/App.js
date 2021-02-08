@@ -44,7 +44,11 @@ function App() {
       <Provider store={store}>
         <ConnectedRouter history={history}>
           <Header/>
-          {routes}
+          <div className='page'>
+            <div className='page-content'>
+              {routes}
+            </div>
+          </div>
         </ConnectedRouter>
       </Provider>
     </Suspense>
