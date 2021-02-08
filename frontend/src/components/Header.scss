@@ -1,14 +1,16 @@
 .header-component {
-  flex-grow: 1;
 
   .app-bar {
     background-color: #d9534f;
 
-    .menu-button {
+    .header-main {
     }
 
-    .title {
-      flex-grow: 1;
+    .header-auth {
+      margin-right: 0;
+      padding-right: 2rem;
+      position: fixed;
+      right: 0;
     }
   }
 }
