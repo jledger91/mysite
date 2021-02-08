@@ -16,19 +16,25 @@ import './FilmRow.scss';
 
 const FilmRow = (props) => {
   
-  const { params, title, value } = props;
+  const {
+    params,
+    title,
+    value,
+  } = props;
   
   const dispatch = useDispatch();
   
   const films = useSelector(state => state.film.list?.[value]);
+  
+  const PAGINATION_LIMIT = 4;
   
   const onPageTurn = (direction) => () => {
     dispatch({ type: GET_FILMS, payload: {
         key: value,
         params: {
           ...params,
-          limit: 4,
-          offset: films.pagination.offset + (direction * films.pagination.limit)
+          limit: PAGINATION_LIMIT,
+          offset: films.pagination.offset + (direction * 1)
         }
       }});
   }
@@ -40,15 +46,15 @@ const FilmRow = (props) => {
         key: value,
         params: {
           ...params,
-          limit: 4,
+          limit: PAGINATION_LIMIT,
           offset: 0,
         },
       }});
-  }, [dispatch, params])
+  }, [dispatch, params, value])
   
   return (
     <div className='film-row-component'>
-      <Typography className='list-title'
+      <Typography className='row-title'
                   variant='h5'>
         {title}
       </Typography>

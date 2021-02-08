@@ -1,6 +1,10 @@
 .film-row-component {
   padding-bottom: 30px;
 
+  .row-title {
+    margin-left: 85px;
+  }
+
   .film-row-container {
     display: flex;
     flex-direction: row;
