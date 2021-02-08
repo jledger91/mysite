@@ -1,8 +1,12 @@
 # General
+quick-install: env install-backend install-frontend build-frontend
+
 env:
 	cp .env.template .env
 
 # Django
+install-backend: build make-migrations migrate collect-static create-sample-data create-super-user
+
 collect-static:
 	docker-compose run django bash -c "python3 manage.py collectstatic"
 
@@ -36,8 +40,11 @@ up:
 	docker-compose up
 
 # React
-install-ui-modules:
+install-frontend:
 	cd frontend; npm install
 
-start-ui-server:
+start-frontend:
 	cd frontend; npm start
+
+build-frontend:
+	cd frontend; npm run build

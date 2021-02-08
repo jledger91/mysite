@@ -14,6 +14,7 @@ A test Django site for development purposes. Once set up, it can be found at:
     - [Backend](#backend)
     - [Frontend](#frontend)
   - [Creating Sample Data](#creating-sample-data)
+  - [Starting the Site](#starting-the-site)
   - [Tests](#tests)
   - [Django Shell](#django-shell)
 
@@ -68,6 +69,13 @@ and can be accessed using your superuser credentials.
 (assuming Linux or macOS), depending on your local setup.**
 
 ### Installation
+___
+**For a quick install, run:**
+```
+make quick-install
+```
+_(You can skip directly to [starting the site](#starting-the-site) after this.)_
+___
 
 First, set up the `.env` file with:
 ```
@@ -79,12 +87,14 @@ To build the Docker images, run the following:
 make build
 ```
 
-To spin up the containers, run:
-```
-make up
-```
-
 #### Backend
+___
+**To install the backend in one go, run:**
+```
+make install-backend
+```
+_(You can skip directly to [installing the frontend](#frontend) after this.)_
+___
 
 To make migration files, run:
 ```
@@ -102,15 +112,22 @@ make collect-static
 ```
 
 #### Frontend
+___
+**To install the frontend in one go, run:**
+```
+make install-frontend
+```
+_(You can skip directly to [creating sample data](#creating-sample-data) after this.)_
+___
 
 To install necessary node modules, run:
 ```
-make install-ui-modules
+make install-frontend
 ```
 
 To start the React development server, run:
 ```
-make start-ui-server
+make start-frontend
 ```
 
 ### Creating Sample Data
@@ -130,6 +147,19 @@ any staff or superuser profiles), run:
 ```
 make flush-and-create-sample-data
 ```
+
+### Starting the Site
+
+To start the backend and other containers, run:
+```
+make up
+```
+
+Then, to start React's development server, in a separate terminal, run:
+```
+make start-frontend
+```
+
 
 ### Tests
 
