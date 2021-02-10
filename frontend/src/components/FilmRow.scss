@@ -2,12 +2,13 @@
   padding-bottom: 30px;
 
   .row-title {
-    margin-left: 85px;
+    margin-left: 136px;
   }
 
   .film-row-container {
     display: flex;
     flex-direction: row;
+    justify-content: center;
   }
 
   .film-row {
