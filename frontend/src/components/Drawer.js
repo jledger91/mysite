@@ -58,7 +58,9 @@ const Drawer = (props) => {
         <ListItem className='list-item'
                   button
                   onClick={onClose}>
-          <ListItemIcon><MenuIcon/></ListItemIcon>
+          <ListItemIcon>
+            <MenuIcon/>
+          </ListItemIcon>
         </ListItem>
         <Divider/>
         {

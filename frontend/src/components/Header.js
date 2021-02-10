@@ -42,8 +42,7 @@ const Header = () => {
                         onClick={handleDrawerClick}>
               <MenuIcon/>
             </IconButton>
-            <Button variant='h6'
-                    color='inherit'
+            <Button color='inherit'
                     onClick={handleHomeClick}>
               My Site
             </Button>

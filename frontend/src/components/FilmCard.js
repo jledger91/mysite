@@ -32,8 +32,7 @@ const FilmCard = (props) => {
                      image={film.poster} />
         </CardActionArea>
       </Card>
-      <Typography className='title'
-                  variant='h7'>
+      <Typography className='title'>
         {film.title} ({releaseYear}) - ★ {averageScore}
       </Typography>
     </div>

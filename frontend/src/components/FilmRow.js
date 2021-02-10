@@ -53,26 +53,32 @@ const FilmRow = (props) => {
   }, [dispatch, params, value])
   
   return (
-    <div className='film-row-component'>
-      <Typography className='row-title'
-                  variant='h5'>
-        {title}
-      </Typography>
-      <div className='film-row-container'>
-        <Button onClick={onPageTurn(-1)}
-                disabled={previousButtonDisabled}>
-          <KeyboardArrowLeftIcon/>
-        </Button>
-        <List className='film-row'>
-          {
-            films?.results?.map(film => <FilmCard film={film} />)
-          }
-        </List>
-        <Button onClick={onPageTurn(1)}
-                disabled={nextButtonDisabled}>
-          <KeyboardArrowRightIcon/>
-        </Button>
-      </div>
+    <div>
+      {
+        films &&
+        <div className='film-row-component'>
+          <Typography className='row-title'
+                      variant='h5'>
+            {title}
+          </Typography>
+          <div className='film-row-container'>
+            <Button onClick={onPageTurn(-1)}
+                    disabled={previousButtonDisabled}>
+              <KeyboardArrowLeftIcon/>
+            </Button>
+            <List className='film-row'>
+              {
+                films?.results?.map(film =>
+                  <FilmCard key={film.id} film={film} />)
+              }
+            </List>
+            <Button onClick={onPageTurn(1)}
+                    disabled={nextButtonDisabled}>
+              <KeyboardArrowRightIcon/>
+            </Button>
+          </div>
+        </div>
+      }
     </div>
   );
 }

@@ -50,7 +50,7 @@ const FilmList = () => {
       </div>
       {
         categories.map(category =>
-          <div className={category.key}>
+          <div className={category.key} key={category.key}>
             <FilmRow title={category.title}
                      value={category.key}
                      params={category.params} />
