@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import {
@@ -25,16 +25,11 @@ const LoginForm = (props) => {
   
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
-  const handleLoginSubmit = () => {
+  const handleSubmit = () => {
     dispatch({ type: LOGIN, payload: { username, password }});
     onClose();
   }
-  
-  useEffect(() => {
-    setUsername(undefined);
-    setPassword(undefined);
-  }, [setUsername, setPassword])
-  
+
   return (
     <div className='login-form'>
       <DialogContent>
@@ -50,7 +45,7 @@ const LoginForm = (props) => {
       </DialogContent>
       <DialogActions className='action-area'>
         <Button className='login-button'
-                onClick={handleLoginSubmit}
+                onClick={handleSubmit}
                 disabled={loginDisabled}>
           Sign In
         </Button>

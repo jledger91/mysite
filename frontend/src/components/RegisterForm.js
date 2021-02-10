@@ -45,7 +45,7 @@ const RegisterForm = (props) => {
     }
   ];
   
-  const handleRegisterSubmit = (data) => () => {
+  const handleSubmit = (data) => () => {
     dispatch({ type: REGISTER, payload: { data }});
     onClose();
   }
@@ -76,7 +76,7 @@ const RegisterForm = (props) => {
       </DialogContent>
       <DialogActions className='action-area'>
         <Button className='register-button'
-                onClick={handleRegisterSubmit(registerFormData)}
+                onClick={handleSubmit(registerFormData)}
                 disabled={registerDisabled}>
           Register
         </Button>
