@@ -26,7 +26,7 @@ const HomeCarousel = () => {
   
   useEffect(() => {
     dispatch({ type: GET_FILMS, payload: {
-        key: 'home_carousel',
+        key: 'home',
         params: {
           ordering: 'release_date_desc',
           limit: PAGINATION_LIMIT,
