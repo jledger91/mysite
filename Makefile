@@ -1,5 +1,5 @@
 # General
-quick-install: env install-backend install-frontend
+quick-install: install-backend install-frontend
 
 env:
 	cp .env.template .env
