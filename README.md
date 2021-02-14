@@ -69,6 +69,12 @@ and can be accessed using your superuser credentials.
 (assuming Linux or macOS), depending on your local setup.**
 
 ### Installation
+
+First, set up the `.env` file with:
+```
+make env
+```
+
 ___
 **For a quick install, run:**
 ```
@@ -77,17 +83,13 @@ make quick-install
 _(You can skip directly to [starting the site](#starting-the-site) after this.)_
 ___
 
-First, set up the `.env` file with:
-```
-make env
-```
-
 To build the Docker images, run the following:
 ```
 make build
 ```
 
 #### Backend
+
 ___
 **To install the backend in one go, run:**
 ```
@@ -112,6 +114,7 @@ make collect-static
 ```
 
 #### Frontend
+
 ___
 **To install the frontend in one go, run:**
 ```
