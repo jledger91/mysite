@@ -1,10 +1,19 @@
-import { SET_FILM, SET_FILMS } from './actions';
+import {
+  CLEAR_FILM,
+  SET_FILM,
+  SET_FILMS,
+} from './actions';
 
 export const initialState = {
 }
 
 const filmReducer = function (state = initialState, action) {
   switch (action.type) {
+    case CLEAR_FILM:
+      return {
+        ...state,
+        detail: undefined,
+      }
     case SET_FILM:
       return {
         ...state,
