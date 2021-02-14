@@ -1,0 +1,31 @@
+.film-detail-view {
+
+  .film-details-container {
+    display: inline-flex;
+    justify-content: center;
+
+    .film-card {
+      width: 300px;
+      height: 450px;
+      margin: 0 20px 10px 20px;
+
+      .poster {
+        height: 100%;
+      }
+    }
+
+    .film-details {
+      width: 40%;
+    }
+  }
+
+  .review-list-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+
+    .review-list-widget {
+      max-width: 1000px;
+    }
+  }
+}
