@@ -14,7 +14,7 @@ from mysite.models import Film
 class FilmViewSet(viewsets.ModelViewSet):
     """View set for the Film model."""
 
-    queryset = Film.objects.annotate(
+    queryset = Film.objects.order_by('id').annotate(
         average_score=Avg('review__rating'),
     )
     serializer_class = FilmSerializer
