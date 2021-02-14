@@ -27,29 +27,30 @@ const FilmRow = (props) => {
   const films = useSelector(state => state.film.list?.[value]);
   
   const PAGINATION_LIMIT = 4;
+  const PAGE_TURN_OFFSET = 1;
+  
+  const getFilmsPayload = (direction, offset) => {
+    return {
+      key: value,
+      params: {
+        ...params,
+        limit: PAGINATION_LIMIT,
+        offset: offset + (direction * PAGE_TURN_OFFSET)
+      }
+    }
+  }
   
   const onPageTurn = (direction) => () => {
-    dispatch({ type: GET_FILMS, payload: {
-        key: value,
-        params: {
-          ...params,
-          limit: PAGINATION_LIMIT,
-          offset: films.pagination.offset + (direction * 1)
-        }
-      }});
-  }
+    dispatch({ type: GET_FILMS, payload: getFilmsPayload(
+        direction,
+        films.pagination.offset,
+      )});
+  };
   const previousButtonDisabled = !films?.pagination?.previous;
   const nextButtonDisabled = !films?.pagination?.next;
   
   useEffect(() => {
-    dispatch({ type: GET_FILMS, payload: {
-        key: value,
-        params: {
-          ...params,
-          limit: PAGINATION_LIMIT,
-          offset: 0,
-        },
-      }});
+    dispatch({ type: GET_FILMS, payload: getFilmsPayload(1, 0) });
   }, [dispatch, params, value])
   
   return (

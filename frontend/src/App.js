@@ -31,7 +31,7 @@ function App() {
   
   const Loading = <CircularProgress/>;
   
-  const routes = (<Switch>
+  const Routes = <Switch>
     <Route exact path={r.HOME} component={Home} />
     <Route exact path={r.FILM_DETAIL} component={FilmDetail} />
     <Route exact path={r.FILM_LIST} component={FilmList} />
@@ -39,7 +39,7 @@ function App() {
     <Route exact path={r.REVIEW_LIST} component={ReviewList} />
     <Route exact path={r.USER_DETAIL} component={UserDetail} />
     <Route exact path={r.USER_LIST} component={UserList} />
-  </Switch>);
+  </Switch>;
   
   return (
     <Suspense fallback={Loading}>
@@ -48,7 +48,7 @@ function App() {
           <Header/>
           <div className='page'>
             <div className='page-content'>
-              {routes}
+              {Routes}
             </div>
           </div>
         </ConnectedRouter>

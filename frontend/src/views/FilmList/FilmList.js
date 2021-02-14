@@ -40,6 +40,9 @@ const FilmList = () => {
     {
       key: 'all',
       title: 'All',
+      params: {
+        'ordering': 'title_asc',
+      },
     },
   ]
   
