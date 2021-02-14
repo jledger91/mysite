@@ -12,7 +12,7 @@ from mysite.models import Review
 class ReviewViewSet(viewsets.ModelViewSet):
     """View set for the Review model."""
 
-    queryset = Review.objects.all()
+    queryset = Review.objects.order_by('id')
     serializer_class = ReviewSerializer
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly

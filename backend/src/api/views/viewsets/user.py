@@ -12,7 +12,7 @@ from api.permissions import IsSelfOrReadOnly, IsSuperuser
 class UserViewSet(viewsets.ModelViewSet):
     """View set for the User model."""
 
-    queryset = User.objects.all()
+    queryset = User.objects.order_by('id')
     serializer_class = serializers.UserSerializer
     permission_classes = [IsSelfOrReadOnly | IsSuperuser]
     filter_backends = [DjangoFilterBackend]
