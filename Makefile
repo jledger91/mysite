@@ -41,7 +41,7 @@ test:
 
 # React
 install-frontend:
-	cd frontend; npm install
+	cd frontend; npm ci
 
 start-frontend:
 	cd frontend; npm start
