@@ -16,9 +16,11 @@ const ReviewListWidget = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const reviews = useSelector(state => state.review.list)
-  const reviewer = (review) => (review.first_name && review.last_name)
-      ? `${review.first_name} ${review.last_name} @${review.username}`
-      : `@${review.username}`
+  const reviewer = (review) =>
+    (review.user_first_name && review.user_last_name)
+      ? `${review.user_first_name} ${review.user_last_name}
+        @${review.user_username}`
+      : `@${review.user_username}`
   
   const onReviewClick = (id) => () => {
     history.push(REVIEW_DETAIL.replace(':id', id))
