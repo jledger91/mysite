@@ -6,11 +6,18 @@ from mysite.models import Review
 class ReviewSerializer(serializers.ModelSerializer):
     """Serializer for the Review model."""
 
+    username = serializers.CharField(source='user.username')
+    first_name = serializers.CharField(source='user.first_name')
+    last_name = serializers.CharField(source='user.last_name')
+
     class Meta:
         model = Review
         fields = (
             'id',
             'user',
+            'username',
+            'first_name',
+            'last_name',
             'film',
             'rating',
             'review',
