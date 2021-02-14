@@ -16,11 +16,8 @@ const ReviewListWidget = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const reviews = useSelector(state => state.review.list)
-  const reviewer = (review) =>
-    (review.user_first_name && review.user_last_name)
-      ? `${review.user_first_name} ${review.user_last_name}
-        @${review.user_username}`
-      : `@${review.user_username}`
+  const fullName = (review) =>
+    `${review.user_first_name} ${review.user_last_name}`;
   
   const onReviewClick = (id) => () => {
     history.push(REVIEW_DETAIL.replace(':id', id))
@@ -33,16 +30,18 @@ const ReviewListWidget = (props) => {
   return (
     <div className='review-list-widget'>
       {
-        reviews?.map(review => <div className='review-card'
-                                    key={review.id}>
-          <CardActionArea className='review'
-                          onClick={onReviewClick(review.id)}>
+        reviews?.map(review =>
+          <div className='review-card'
+               key={review.id}>
             <Typography variant='h6'>
-              ★ {review.rating} - {reviewer(review)}
+              ★ {review.rating} - {fullName(review)} @{review.user_username}
             </Typography>
-            {review.review.slice(0, 750)} ...
-          </CardActionArea>
-        </div>)
+            <CardActionArea className='review'
+                            onClick={onReviewClick(review.id)}>
+              {review.review.slice(0, 750)} ...
+            </CardActionArea>
+          </div>
+        )
       }
     </div>
   );
