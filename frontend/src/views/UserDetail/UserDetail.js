@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 
-import { GET_USER } from '../../store/modules/user/actions';
+import { CLEAR_USER, GET_USER } from '../../store/modules/user/actions';
 
 import './UserDetail.scss';
 
@@ -13,6 +13,7 @@ const UserDetail = () => {
   
   useEffect(() => {
     dispatch({ type: GET_USER, payload: { id } });
+    return () => dispatch({ type: CLEAR_USER });
   }, [id, dispatch]);
   
   return (

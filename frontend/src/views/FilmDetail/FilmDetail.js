@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 
 import ReviewListWidget from '../../components/ReviewListWidget';
-import { GET_FILM } from '../../store/modules/film/actions';
+import { CLEAR_FILM, GET_FILM } from '../../store/modules/film/actions';
 
 import './FilmDetail.scss';
 
@@ -28,6 +28,7 @@ const FilmDetail = () => {
   
   useEffect(() => {
     dispatch({ type: GET_FILM, payload: { id } });
+    return () => dispatch({ type: CLEAR_FILM });
   }, [id, dispatch]);
   
   return (

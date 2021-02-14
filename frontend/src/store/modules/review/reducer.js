@@ -1,4 +1,8 @@
-import { SET_REVIEW, SET_REVIEWS } from './actions';
+import {
+  CLEAR_REVIEW,
+  SET_REVIEW,
+  SET_REVIEWS,
+} from './actions';
 
 export const initialState = {
   detail: undefined,
@@ -7,6 +11,11 @@ export const initialState = {
 
 const reviewReducer = function (state = initialState, action) {
   switch (action.type) {
+    case CLEAR_REVIEW:
+      return {
+        ...state,
+        detail: undefined,
+      }
     case SET_REVIEW:
       return {
         ...state,
