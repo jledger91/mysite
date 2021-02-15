@@ -42,7 +42,7 @@ const Header = () => {
             </IconButton>
             <Button color='inherit'
                     onClick={handleHomeClick}>
-              My Site
+              MySite
             </Button>
           </div>
           <div className='header-auth'>
