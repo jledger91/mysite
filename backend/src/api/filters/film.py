@@ -1,4 +1,4 @@
-from django.db.models import Avg
+from django.contrib.auth.models import User
 
 from django_filters import rest_framework as filters
 
@@ -7,26 +7,6 @@ from mysite.models import Film
 
 class FilmFilter(filters.FilterSet):
     """FilterSet for the Film API endpoint."""
-
-    def filter_average_score(self, name, value):
-        return self.annotate(Avg('review__rating')).filter(
-            review__rating__avg=value,
-        )
-
-    def filter_average_score_floor(self, name, value):
-        return self.annotate(Avg('review__rating')).filter(
-            review__rating__avg__contains=value,
-        )
-
-    def filter_max_average_score(self, name, value):
-        return self.annotate(Avg('review__rating')).filter(
-            review__rating__avg__lte=value,
-        )
-
-    def filter_min_average_score(self, name, value):
-        return self.annotate(Avg('review__rating')).filter(
-            review__rating__avg__gte=value,
-        )
 
     title = filters.CharFilter('title', lookup_expr='icontains')
     release_date = filters.DateFilter('release_date', lookup_expr='contains')
@@ -47,12 +27,19 @@ class FilmFilter(filters.FilterSet):
         lookup_expr='exact',
         exclude=True
     )
-    average_score = filters.NumberFilter(method=filter_average_score)
+    average_score = filters.NumberFilter('average_score', lookup_expr='exact')
     average_score_floor = filters.NumberFilter(
-        method=filter_average_score_floor
+        'average_score', lookup_expr='startswith'
     )
-    max_average_score = filters.NumberFilter(method=filter_max_average_score)
-    min_average_score = filters.NumberFilter(method=filter_min_average_score)
+    max_average_score = filters.NumberFilter(
+        'average_score', lookup_expr='lte'
+    )
+    min_average_score = filters.NumberFilter(
+        'average_score', lookup_expr='gte'
+    )
+    reviewed_by = filters.ModelChoiceFilter(
+        'review__user', queryset=User.objects.all()
+    )
 
     ordering = filters.OrderingFilter(fields=[
         ('title', 'title_asc'),
