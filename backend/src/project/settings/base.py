@@ -33,6 +33,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # MySite apps
+    'api.apps.ApiConfig',
+    'mysite.apps.MySiteConfig',
+
     # Django core
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,10 +49,6 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
-
-    # MySite apps
-    'api.apps.ApiConfig',
-    'mysite.apps.MySiteConfig',
 ]
 
 REST_FRAMEWORK = {
@@ -76,7 +76,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
