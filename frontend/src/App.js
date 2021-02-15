@@ -20,7 +20,6 @@ import { history, store } from './store';
 import { IS_AUTHENTICATED } from './store/modules/auth/actions';
 
 import 'antd/dist/antd.css';
-
 import './App.scss';
 
 function App() {

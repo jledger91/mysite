@@ -17,41 +17,40 @@ import './FilmRow.scss';
 const FilmRow = (props) => {
   
   const {
+    pageTurnOffset,
+    paginationLimit,
     params,
     title,
     value,
   } = props;
   
   const dispatch = useDispatch();
-  
   const films = useSelector(state => state.film.list?.[value]);
   
-  const PAGINATION_LIMIT = 4;
-  const PAGE_TURN_OFFSET = 1;
-  
-  const getFilmsPayload = (direction, offset) => {
-    return {
-      key: value,
-      params: {
-        ...params,
-        limit: PAGINATION_LIMIT,
-        offset: offset + (direction * PAGE_TURN_OFFSET)
-      }
-    }
-  }
-  
-  const onPageTurn = (direction) => () => {
-    dispatch({ type: GET_FILMS, payload: getFilmsPayload(
-        direction,
-        films.pagination.offset,
-      )});
-  };
   const previousButtonDisabled = !films?.pagination?.previous;
   const nextButtonDisabled = !films?.pagination?.next;
   
+  const onPageTurn = (direction) => () => {
+    dispatch({ type: GET_FILMS, payload: {
+        key: value,
+        params: {
+          ...params,
+          limit: paginationLimit,
+          offset: films.pagination.offset + (direction * pageTurnOffset)
+        }
+      }});
+  };
+  
   useEffect(() => {
-    dispatch({ type: GET_FILMS, payload: getFilmsPayload(1, 0) });
-  }, [dispatch, params, value])
+    dispatch({ type: GET_FILMS, payload: {
+        key: value,
+        params: {
+          ...params,
+          limit: paginationLimit,
+          offset: 0,
+        }
+      }});
+  }, [dispatch, paginationLimit, params, value]);
   
   return (
     <div>
