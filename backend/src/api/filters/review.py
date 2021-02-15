@@ -17,7 +17,6 @@ class ReviewFilter(filters.FilterSet):
     submitted_after = filters.DateFilter('date_submitted', lookup_expr='gte')
     review = filters.CharFilter('review', lookup_expr='icontains')
     rating = filters.NumberFilter('rating', lookup_expr='exact')
-
     ordering = filters.OrderingFilter(fields=[
         ('user', 'user'),
         ('film', 'film'),

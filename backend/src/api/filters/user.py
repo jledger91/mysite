@@ -10,7 +10,6 @@ class UserFilter(filters.FilterSet):
     email = filters.CharFilter('email', lookup_expr='exact')
     is_staff = filters.BooleanFilter('is_staff')
     is_superuser = filters.BooleanFilter('is_superuser')
-
     ordering = filters.OrderingFilter(fields=[
         ('username', 'username'),
         ('first_name', 'first_name'),

@@ -52,7 +52,6 @@ class FilmFilter(filters.FilterSet):
         label='Reviewed by',
         queryset=User.objects.all(),
     )
-
     ordering = filters.OrderingFilter(fields=[
         ('title', 'title_asc'),
         ('-title', 'title_desc'),
