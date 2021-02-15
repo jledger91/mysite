@@ -22,14 +22,9 @@ import { IS_AUTHENTICATED } from './store/modules/auth/actions';
 import 'antd/dist/antd.css';
 import './App.scss';
 
-function App() {
-  
-  useEffect(() => {
-    store.dispatch({ type: IS_AUTHENTICATED });
-  }, []);
+const App = () => {
   
   const Loading = <CircularProgress/>;
-  
   const Routes = <Switch>
     <Route exact path={r.HOME} component={Home} />
     <Route exact path={r.FILM_DETAIL} component={FilmDetail} />
@@ -39,6 +34,10 @@ function App() {
     <Route exact path={r.USER_DETAIL} component={UserDetail} />
     <Route exact path={r.USER_LIST} component={UserList} />
   </Switch>;
+  
+  useEffect(() => {
+    store.dispatch({ type: IS_AUTHENTICATED });
+  }, []);
   
   return (
     <Suspense fallback={Loading}>

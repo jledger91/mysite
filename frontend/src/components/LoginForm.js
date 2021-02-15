@@ -17,7 +17,6 @@ const LoginForm = (props) => {
   const { onClose } = props;
   
   const dispatch = useDispatch();
-  
   const [username, setUsername] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   

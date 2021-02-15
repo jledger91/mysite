@@ -19,10 +19,8 @@ import './Header.scss';
 
 const Header = () => {
   
-  const { auth } = useSelector(state => state);
-  
   const history = useHistory();
-  
+  const { auth } = useSelector(state => state);
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   

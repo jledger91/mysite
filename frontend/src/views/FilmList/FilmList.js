@@ -9,7 +9,6 @@ const FilmList = () => {
   const PAGINATION_LIMIT = 4;
   
   const currentYear = new Date().getFullYear();
-  
   const categories = [
     {
       key: 'latest',

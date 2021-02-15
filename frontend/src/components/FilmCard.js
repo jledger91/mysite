@@ -17,12 +17,12 @@ const FilmCard = (props) => {
   
   const history = useHistory();
   
+  const releaseYear = film.release_date.slice(0, 4);
+  const averageScore = film.average_score?.toFixed(1) || '--';
+  
   const handleOnClick = () => {
     history.push(FILM_DETAIL.replace(':id', film.id))
   }
-  
-  const releaseYear = film.release_date.slice(0, 4);
-  const averageScore = film.average_score?.toFixed(1) || '--';
   
   return (
     <div className='film-card-component'>

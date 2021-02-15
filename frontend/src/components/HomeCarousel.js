@@ -13,12 +13,11 @@ import './HomeCarousel.scss';
 
 const HomeCarousel = () => {
   
+  const PAGINATION_LIMIT = 3;
+  
   const dispatch = useDispatch();
   const history = useHistory();
-  
   const films = useSelector(state => state.film.list?.home);
-  
-  const PAGINATION_LIMIT = 3;
   
   const handleOnClick = (id) => () => {
     history.push(FILM_DETAIL.replace(':id', id))

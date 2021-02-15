@@ -16,9 +16,9 @@ const ReviewListWidget = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const reviews = useSelector(state => state.review.list)
+  
   const fullName = (review) =>
     `${review.user_first_name} ${review.user_last_name}`;
-  
   const onReviewClick = (id) => () => {
     history.push(REVIEW_DETAIL.replace(':id', id))
   }

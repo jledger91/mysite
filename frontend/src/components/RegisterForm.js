@@ -17,8 +17,8 @@ const RegisterForm = (props) => {
   const { onClose } = props;
   
   const dispatch = useDispatch();
-  
   const [registerFormData, setRegisterFormData] = useState({});
+  
   const fields = [
     {
       name: 'username',
@@ -44,21 +44,19 @@ const RegisterForm = (props) => {
       required: true,
     }
   ];
+  const registerDisabled = fields
+    .filter(field => field.required)
+    .reduce((acc, cur) =>
+      !registerFormData[cur.name] ? true : acc, false);
   
   const handleSubmit = (data) => () => {
     dispatch({ type: REGISTER, payload: { data }});
     onClose();
   }
-  
   const handleFormChange = (key) => (event) => setRegisterFormData({
     ...registerFormData,
     [key]: event.target.value || undefined,
   });
-  
-  const registerDisabled = fields
-    .filter(field => field.required)
-    .reduce((acc, cur) =>
-        !registerFormData[cur.name] ? true : acc, false);
   
   return (
     <div className='register-form'>
@@ -66,11 +64,11 @@ const RegisterForm = (props) => {
         {
           fields.map(field =>
             <TextField className='form-field'
-                   label={field.label}
-                   required={field.required}
-                   color='secondary'
-                   type={field.type}
-                   onChange={handleFormChange(field.name)}/>
+                       label={field.label}
+                       required={field.required}
+                       color='secondary'
+                       type={field.type}
+                       onChange={handleFormChange(field.name)}/>
           )
         }
       </DialogContent>
