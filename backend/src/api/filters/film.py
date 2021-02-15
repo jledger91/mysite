@@ -25,20 +25,32 @@ class FilmFilter(filters.FilterSet):
         'rating',
         choices=Film.RATING_CHOICES,
         lookup_expr='exact',
-        exclude=True
+        exclude=True,
     )
-    average_score = filters.NumberFilter('average_score', lookup_expr='exact')
+    average_score = filters.NumberFilter(
+        'average_score',
+        label='Average score',
+        lookup_expr='exact',
+    )
     average_score_floor = filters.NumberFilter(
-        'average_score', lookup_expr='startswith'
+        'average_score',
+        label='Average score starts with',
+        lookup_expr='startswith',
     )
     max_average_score = filters.NumberFilter(
-        'average_score', lookup_expr='lte'
+        'average_score',
+        label='Average score is less than or equal to',
+        lookup_expr='lte',
     )
     min_average_score = filters.NumberFilter(
-        'average_score', lookup_expr='gte'
+        'average_score',
+        label='Average score is greater than or equal to',
+        lookup_expr='gte',
     )
     reviewed_by = filters.ModelChoiceFilter(
-        'review__user', queryset=User.objects.all()
+        'review__user',
+        label='Reviewed by',
+        queryset=User.objects.all(),
     )
 
     ordering = filters.OrderingFilter(fields=[
