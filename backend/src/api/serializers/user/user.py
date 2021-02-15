@@ -13,7 +13,6 @@ class UserSerializer(serializers.ModelSerializer):
             'username',
             'first_name',
             'last_name',
-            'email',
             'password',
             'is_staff',
         )
@@ -21,9 +20,6 @@ class UserSerializer(serializers.ModelSerializer):
             'is_staff',
         )
         extra_kwargs = {
-            'email': {
-                'write_only': True,
-            },
             'password': {
                 'write_only': True,
             },

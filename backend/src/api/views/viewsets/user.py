@@ -26,4 +26,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.user.is_superuser:
             return serializers.UserForSuperuserSerializer
+        if self.kwargs.get('pk') == str(self.request.user.pk) \
+                or self.request.method in ('POST',):
+            return serializers.UserForSelfSerializer
         return self.serializer_class
