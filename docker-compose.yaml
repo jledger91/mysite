@@ -8,10 +8,17 @@ services:
       - '0.0.0.0:80:80'
     depends_on:
       - django
+      - react
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./data/static/:/www/static
       - ./data/media/:/www/media
+
+  react:
+    build:
+      context: frontend
+    volumes:
+      - ./frontend/build/:/build
 
   django:
     build:
