@@ -5,7 +5,8 @@
 /coverage/
 
 # production
-/build/
+/build/*
+!/build/IGNOREME
 
 # misc
 .eslintcache
