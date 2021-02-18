@@ -65,9 +65,6 @@ and can be accessed using your superuser credentials.
 - Nodejs (v10.19.0)
 - npm (6.14.4)
 
-**Note: Any `make` commands involving _docker-compose_ may require `sudo` 
-(assuming Linux or macOS), depending on your local setup.**
-
 ### Installation
 
 First, set up the `.env` file with:
