@@ -67,18 +67,19 @@ and can be accessed using your superuser credentials.
 
 ### Installation
 
-First, set up the `.env` file with:
-```
-make env
-```
-
 ___
+
 **For a quick install, run:**
 ```
 make quick-install
 ```
 _(You can skip directly to [starting the site](#starting-the-site) after this.)_
 ___
+
+First, set up the `.env` file with:
+```
+make env
+```
 
 To build the Docker images, run the following:
 ```
