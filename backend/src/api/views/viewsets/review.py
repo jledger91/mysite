@@ -3,7 +3,11 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions, viewsets
 
 from api.filters import ReviewFilter
-from api.permissions import IsStaffAndIsDelete, IsOwnerOrReadOnly
+from api.permissions import (
+    IsOwnerOrReadOnly,
+    IsStaffAndIsDelete,
+    IsSuperuser,
+)
 from api.serializers import ReviewSerializer
 
 from mysite.models import Review
@@ -17,7 +21,8 @@ class ReviewViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
         & (IsStaffAndIsDelete
-           | IsOwnerOrReadOnly)
+           | IsOwnerOrReadOnly
+           | IsSuperuser)
     ]
     filter_backends = [DjangoFilterBackend]
     filterset_class = ReviewFilter
