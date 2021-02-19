@@ -20,4 +20,4 @@ class IsAuthenticatedView(APIView):
                 }
             }, status=200)
 
-        return Response({'detail': 'Not logged in'}, status=204)
+        return Response({'detail': 'Not logged in'}, status=200)
