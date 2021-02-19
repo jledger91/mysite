@@ -1,50 +1,66 @@
+# Vars
+DJANGO_RUN = $(DOCKER_COMPOSE) run django bash -c
+DOCKER_COMPOSE = sudo docker-compose
+MANAGE = python3 manage.py
+NPM = cd frontend; npm
+
 # General
-quick-install: env build-frontend install-frontend install-backend
+quick-install: \
+	env \
+	install-frontend \
+	build-frontend \
+	install-backend
 
 env:
 	cp .env.template .env
 
 # Docker
 build:
-	sudo docker-compose build
+	$(DOCKER_COMPOSE) build
 
 up:
-	sudo docker-compose up
+	$(DOCKER_COMPOSE) up
 
 # Django
-install-backend: build make-migrations migrate collect-static create-sample-data create-super-user
+install-backend: \
+	build \
+	make-migrations \
+	migrate \
+	collect-static \
+	create-sample-data \
+	create-super-user
 
 collect-static:
-	sudo docker-compose run django bash -c "python3 manage.py collectstatic"
+	$(DJANGO_RUN) "$(MANAGE) collectstatic"
 
 create-sample-data:
-	sudo docker-compose run django bash -c "python3 manage.py createsampledata"
+	$(DJANGO_RUN) "$(MANAGE) createsampledata"
 
 flush-and-create-sample-data:
 	sudo rm --force data/media/posters/*
-	sudo docker-compose run django bash -c "python3 manage.py createsampledata --flush"
+	$(DJANGO_RUN) "$(MANAGE) createsampledata --flush"
 
 create-super-user:
-	sudo docker-compose run django bash -c "python3 manage.py createsuperuser"
+	$(DJANGO_RUN) "$(MANAGE) createsuperuser"
 
 make-migrations:
-	sudo docker-compose run django bash -c "python3 manage.py makemigrations"
+	$(DJANGO_RUN) "$(MANAGE) makemigrations"
 
 migrate:
-	sudo docker-compose run django bash -c "python3 manage.py migrate"
+	$(DJANGO_RUN) "$(MANAGE) migrate"
 
 shell:
-	sudo docker-compose run django bash -c "python3 manage.py shell_plus"
+	$(DJANGO_RUN) "$(MANAGE) shell_plus"
 
 test:
-	sudo docker-compose run django bash -c "python3 manage.py test"
+	$(DJANGO_RUN) "$(MANAGE) test"
 
 # React
 install-frontend:
-	cd frontend; npm ci
+	$(NPM) ci
 
 start-frontend:
-	cd frontend; npm start
+	$(NPM) start
 
 build-frontend:
-	cd frontend; npm run build;
+	$(NPM) run build
