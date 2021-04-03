@@ -1,20 +1,12 @@
 /**
  * Retrieves a browser cookie's value.
- * @param cname The name of the cookie to be retrieved.
+ * @param name The name of the cookie to be retrieved.
  * @returns {string}
  */
-export function getCookie(cname) {
-  const name = cname + '=';
+export function getCookie(name) {
   const decodedCookie = decodeURIComponent(document.cookie);
-  const ca = decodedCookie.split(';');
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return '';
+  const cookieArr = decodedCookie.split('; ');
+  const value = cookieArr.find(cookie => cookie.startsWith(name))
+  
+  return value ? value.substring(name.length + 1) : '';
 }
