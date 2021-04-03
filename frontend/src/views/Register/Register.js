@@ -1,22 +1,19 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 
-import {
-  Button,
-  DialogActions,
-  DialogContent,
-  TextField,
-} from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
-import { REGISTER } from '../store/modules/auth/actions';
+import LoginCard from '../../components/LoginCard';
+import { HOME, LOGIN } from '../../routes';
+import { REGISTER } from '../../store/modules/auth/actions';
 
-import './RegisterForm.scss';
+import './Register.scss';
 
-const RegisterForm = (props) => {
-  
-  const { onClose } = props;
+const Register = () => {
   
   const dispatch = useDispatch();
+  const history = useHistory();
   const [registerFormData, setRegisterFormData] = useState({});
   
   const fields = [
@@ -51,16 +48,22 @@ const RegisterForm = (props) => {
   
   const handleSubmit = (data) => () => {
     dispatch({ type: REGISTER, payload: { data }});
-    onClose();
+    // TODO: Only do this if the form is valid.
+    history.push(HOME);
   }
   const handleFormChange = (key) => (event) => setRegisterFormData({
     ...registerFormData,
     [key]: event.target.value || undefined,
   });
+  const handleTabChange = () => history.push(LOGIN);
   
   return (
-    <div className='register-form'>
-      <DialogContent>
+    <div className='register-page'>
+      <LoginCard tab={1}
+                 handleTabChange={handleTabChange}
+                 handleSubmit={handleSubmit}
+                 submitDisabled={registerDisabled}
+                 submitLabel='Register'>
         {
           fields.map(field =>
             <TextField className='form-field'
@@ -71,16 +74,9 @@ const RegisterForm = (props) => {
                        onChange={handleFormChange(field.name)}/>
           )
         }
-      </DialogContent>
-      <DialogActions className='action-area'>
-        <Button className='register-button'
-                onClick={handleSubmit(registerFormData)}
-                disabled={registerDisabled}>
-          Register
-        </Button>
-      </DialogActions>
+      </LoginCard>
     </div>
   );
 }
 
-export default RegisterForm;
+export default Register;

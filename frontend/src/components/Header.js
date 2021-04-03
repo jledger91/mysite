@@ -10,9 +10,8 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import { HOME } from '../routes';
+import { HOME, LOGIN } from '../routes';
 import Drawer from './Drawer';
-import LoginDialog from './LoginDialog';
 import ProfileMenu from './ProfileMenu';
 
 import './Header.scss';
@@ -21,11 +20,9 @@ const Header = () => {
   
   const history = useHistory();
   const { auth } = useSelector(state => state);
-  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   
-  const handleLoginClick = () => setLoginDialogOpen(true);
-  const handleLoginDialogOnClose = () => setLoginDialogOpen(false);
+  const handleLoginClick = () => history.push(LOGIN);
   const handleDrawerClick = () => setDrawerOpen(true);
   const handleDrawerOnClose = () => setDrawerOpen(false);
   const handleHomeClick = () => history.push(HOME);
@@ -58,8 +55,6 @@ const Header = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <LoginDialog open={loginDialogOpen}
-                   onClose={handleLoginDialogOnClose}/>
       <Drawer open={drawerOpen}
               onClose={handleDrawerOnClose}/>
     </div>

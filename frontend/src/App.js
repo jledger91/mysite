@@ -12,6 +12,8 @@ import * as r from './routes';
 import Home from './views/Home/Home';
 import FilmDetail from './views/FilmDetail/FilmDetail';
 import FilmList from './views/FilmList/FilmList';
+import Login from './views/Login/Login';
+import Register from './views/Register/Register';
 import ReviewDetail from './views/ReviewDetail/ReviewDetail';
 import ReviewList from './views/ReviewList/ReviewList';
 import UserDetail from './views/UserDetail/UserDetail';
@@ -29,6 +31,8 @@ const App = () => {
     <Route exact path={r.HOME} component={Home} />
     <Route exact path={r.FILM_DETAIL} component={FilmDetail} />
     <Route exact path={r.FILM_LIST} component={FilmList} />
+    <Route exact path={r.LOGIN} component={Login} />
+    <Route exact path={r.REGISTER} component={Register} />
     <Route exact path={r.REVIEW_DETAIL} component={ReviewDetail} />
     <Route exact path={r.REVIEW_LIST} component={ReviewList} />
     <Route exact path={r.USER_DETAIL} component={UserDetail} />
