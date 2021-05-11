@@ -7,7 +7,7 @@ import { getCookie } from './cookies';
  * @returns {string}
  */
 export function encodeURL(url, params) {
-  let params_url = Object.keys(params)
+  const params_url = Object.keys(params)
     .filter(key => params[key] !== undefined)
     .map(key => key + '=' + encodeURIComponent(params[key]))
     .join('&');
