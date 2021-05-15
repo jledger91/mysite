@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import { TextField } from '@material-ui/core';
@@ -14,6 +14,7 @@ const Login = () => {
   
   const dispatch = useDispatch();
   const history = useHistory();
+  const currentUser = useSelector(state => state.auth.username);
   const [username, setUsername] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   
@@ -23,10 +24,14 @@ const Login = () => {
   const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleSubmit = () => {
     dispatch({ type: LOGIN, payload: { username, password }});
-    // TODO: Only do this if the form is valid.
-    history.push(HOME);
   }
   const handleTabChange = () => history.push(REGISTER);
+  
+  useEffect(() => {
+    if (currentUser) {
+      history.push(HOME);
+    }
+  }, [currentUser, history]);
   
   return (
     <div className='login-page'>

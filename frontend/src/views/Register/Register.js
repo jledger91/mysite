@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import { TextField } from '@material-ui/core';
@@ -14,6 +14,7 @@ const Register = () => {
   
   const dispatch = useDispatch();
   const history = useHistory();
+  const currentUser = useSelector(state => state.auth.username);
   const [registerFormData, setRegisterFormData] = useState({});
   
   const fields = [
@@ -46,16 +47,20 @@ const Register = () => {
     .reduce((acc, cur) =>
       !registerFormData[cur.name] ? true : acc, false);
   
-  const handleSubmit = (data) => () => {
-    dispatch({ type: REGISTER, payload: { data }});
-    // TODO: Only do this if the form is valid.
-    history.push(HOME);
+  const handleSubmit = () => {
+    dispatch({ type: REGISTER, payload: { data: registerFormData }});
   }
   const handleFormChange = (key) => (event) => setRegisterFormData({
     ...registerFormData,
     [key]: event.target.value || undefined,
   });
   const handleTabChange = () => history.push(LOGIN);
+  
+  useEffect(() => {
+    if (currentUser) {
+      history.push(HOME);
+    }
+  }, [currentUser, history]);
   
   return (
     <div className='register-page'>
@@ -67,6 +72,7 @@ const Register = () => {
         {
           fields.map(field =>
             <TextField className='form-field'
+                       key={field.name}
                        label={field.label}
                        required={field.required}
                        color='secondary'
