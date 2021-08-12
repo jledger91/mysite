@@ -21,6 +21,7 @@ POSTGRES_EXEC = $(call DOCKER_COMPOSE_EXEC, postgres)
 # =============================================================================
 
 # General ---------------------------------------------------------------------
+
 env:
 	cp .env.template .env
 
@@ -31,6 +32,7 @@ quick-install: \
 	install-backend
 
 # Docker ----------------------------------------------------------------------
+
 build:
 	$(DOCKER_COMPOSE) build
 
@@ -38,6 +40,7 @@ up:
 	$(DOCKER_COMPOSE) up
 
 # Django ----------------------------------------------------------------------
+
 collect-static:
 	$(DJANGO_RUN) "$(MANAGE) collectstatic"
 
@@ -72,10 +75,12 @@ test:
 	$(DJANGO_RUN) "$(MANAGE) test"
 
 # Postgres --------------------------------------------------------------------
+
 psql:
 	$(POSTGRES_EXEC) "psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)"
 
 # React -----------------------------------------------------------------------
+
 build-frontend:
 	$(NPM) run build
 
