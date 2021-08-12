@@ -18,11 +18,12 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     queryset = Review.objects.order_by('id')
     serializer_class = ReviewSerializer
-    permission_classes = [
+    permission_classes = [(
         permissions.IsAuthenticatedOrReadOnly
-        & (IsStaffAndIsDelete
-           | IsOwnerOrReadOnly
-           | IsSuperuser)
-    ]
+    ) & (
+        IsStaffAndIsDelete
+        | IsOwnerOrReadOnly
+        | IsSuperuser
+    )]
     filter_backends = [DjangoFilterBackend]
     filterset_class = ReviewFilter

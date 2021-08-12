@@ -1,27 +1,56 @@
-# Vars
-DJANGO_RUN = $(DOCKER_COMPOSE) run django bash -c
+include .env
+
+# VARIABLES
+# =============================================================================
+
+DJANGO_RUN = $(call DOCKER_COMPOSE_RUN, django)
+
 DOCKER_COMPOSE = sudo docker-compose
+
+DOCKER_COMPOSE_EXEC = $(DOCKER_COMPOSE) exec $(1) bash -c
+
+DOCKER_COMPOSE_RUN = $(DOCKER_COMPOSE) run --rm $(1) bash -c
+
 MANAGE = python3 manage.py
+
 NPM = cd frontend; npm
 
-# General
+POSTGRES_EXEC = $(call DOCKER_COMPOSE_EXEC, postgres)
+
+# COMMANDS
+# =============================================================================
+
+# General ---------------------------------------------------------------------
+env:
+	cp .env.template .env
+
 quick-install: \
 	env \
 	install-frontend \
 	build-frontend \
 	install-backend
 
-env:
-	cp .env.template .env
-
-# Docker
+# Docker ----------------------------------------------------------------------
 build:
 	$(DOCKER_COMPOSE) build
 
 up:
 	$(DOCKER_COMPOSE) up
 
-# Django
+# Django ----------------------------------------------------------------------
+collect-static:
+	$(DJANGO_RUN) "$(MANAGE) collectstatic"
+
+create-sample-data:
+	$(DJANGO_RUN) "$(MANAGE) createsampledata"
+
+create-super-user:
+	$(DJANGO_RUN) "$(MANAGE) createsuperuser"
+
+flush-and-create-sample-data:
+	-sudo rm --force data/media/posters/*
+	$(DJANGO_RUN) "$(MANAGE) createsampledata --flush"
+
 install-backend: \
 	build \
 	make-migrations \
@@ -29,19 +58,6 @@ install-backend: \
 	collect-static \
 	create-sample-data \
 	create-super-user
-
-collect-static:
-	$(DJANGO_RUN) "$(MANAGE) collectstatic"
-
-create-sample-data:
-	$(DJANGO_RUN) "$(MANAGE) createsampledata"
-
-flush-and-create-sample-data:
-	sudo rm --force data/media/posters/*
-	$(DJANGO_RUN) "$(MANAGE) createsampledata --flush"
-
-create-super-user:
-	$(DJANGO_RUN) "$(MANAGE) createsuperuser"
 
 make-migrations:
 	$(DJANGO_RUN) "$(MANAGE) makemigrations"
@@ -55,12 +71,16 @@ shell:
 test:
 	$(DJANGO_RUN) "$(MANAGE) test"
 
-# React
+# Postgres --------------------------------------------------------------------
+psql:
+	$(POSTGRES_EXEC) "psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)"
+
+# React -----------------------------------------------------------------------
+build-frontend:
+	$(NPM) run build
+
 install-frontend:
 	$(NPM) ci
 
 start-frontend:
 	$(NPM) start
-
-build-frontend:
-	$(NPM) run build
