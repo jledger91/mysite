@@ -2,8 +2,8 @@ from api.serializers.user import UserSerializer
 
 
 class UserForSuperuserSerializer(UserSerializer):
-    """Serializer for the User model, with extended powers for
-    superusers.
+    """
+    Serializer for the User model, with extended powers for superusers.
     """
 
     class Meta:

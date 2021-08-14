@@ -3,8 +3,9 @@ from rest_framework.views import APIView
 
 
 class IsAuthenticatedView(APIView):
-    """A view for validating whether a user is logged in in their
-    current session.
+    """
+    A view for validating whether a user is logged in in their current
+    session.
     """
 
     def post(self, *args, **kwargs):

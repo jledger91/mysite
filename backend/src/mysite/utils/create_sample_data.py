@@ -18,7 +18,9 @@ NUM_REVIEWS = 100
 
 
 def create_sample_data() -> None:
-    """Populates the database with random data."""
+    """
+    Populates the database with random data.
+    """
 
     for _ in range(NUM_USERS):
         user = UserFactory()
@@ -45,7 +47,8 @@ def create_sample_data() -> None:
 
 
 def flush_all_except_staff_and_superusers() -> None:
-    """Flushes all data from the database, except staff and superuser
+    """
+    Flushes all data from the database, except staff and superuser
     accounts.
     """
 

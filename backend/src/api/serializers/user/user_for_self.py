@@ -2,7 +2,8 @@ from api.serializers.user import UserSerializer
 
 
 class UserForSelfSerializer(UserSerializer):
-    """Serializer for the User model, for use when registering or when
+    """
+    Serializer for the User model, for use when registering or when
     accessing own user.
     """
 

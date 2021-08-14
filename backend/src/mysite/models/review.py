@@ -31,8 +31,9 @@ class Review(models.Model):
         )
 
     def __str__(self):
-        """Returns the user's name, alongside the film's title and date
-        of release when called as a string.
+        """
+        Returns the user's name, alongside the film's title and date of
+        release when called as a string.
         """
 
         return f'{self.user.username} - {self.film}'

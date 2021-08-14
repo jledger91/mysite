@@ -26,7 +26,8 @@ class Film(models.Model):
     )
 
     def __str__(self):
-        """Returns the film's title and release date when called as a
+        """
+        Returns the film's title and release date when called as a
         string.
         """
 
