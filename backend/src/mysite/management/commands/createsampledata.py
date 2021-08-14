@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 
-from mysite.utils import create_sample_data, flush_all_but_staff_and_superusers
+from mysite.utils import \
+    create_sample_data, flush_all_except_staff_and_superusers
 
 
 class Command(BaseCommand):
@@ -15,6 +16,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if options.get('flush'):
-            flush_all_but_staff_and_superusers()
+            flush_all_except_staff_and_superusers()
 
         create_sample_data()
