@@ -1,5 +1,12 @@
-from django.test import Client, TestCase
 from django.urls import reverse
+
+import pytest
+
+from api.tests.fixtures import (
+    admin,
+    staff,
+    user,
+)
 
 from mysite.factories import (
     ReviewFactory,
@@ -8,163 +15,156 @@ from mysite.factories import (
 )
 
 
-class TestReviewViewSet(TestCase):
-    """Test class for the ReviewViewSet."""
+@pytest.mark.django_db
+def test_review_get_as_unauthenticated_user(client):
+    film = FilmFactory(poster=None)
+    review = ReviewFactory(film=film)
+    
+    response = client.get(reverse('api:review-list'))
+    assert response.status_code == 200
 
-    def test_review_get_as_unauthenticated_user(self):
-        film = FilmFactory(poster=None)
-        review = ReviewFactory(film=film)
-        client = Client()
+    response = client.get(reverse('api:review-detail', args=[review.pk]))
+    assert response.status_code == 200
 
-        response = client.get(reverse('api:review-list'))
-        assert response.status_code == 200
 
-        response = client.get(reverse('api:review-detail', args=[review.pk]))
-        assert response.status_code == 200
+@pytest.mark.django_db
+def test_review_post_as_unauthenticated_user(client):
+    user = UserFactory()
+    film = FilmFactory(poster=None)
 
-    def test_review_post_as_unauthenticated_user(self):
-        user = UserFactory()
-        film = FilmFactory(poster=None)
+    review = {
+        'user': user.pk,
+        'film': film.pk,
+        'rating': 10,
+        'review': 'Thumbs up.'
+    }
 
-        client = Client()
+    response = client.post(reverse('api:review-list'), data=review)
+    assert response.status_code == 403
 
-        review = {
-            'user': user.pk,
-            'film': film.pk,
-            'rating': 10,
-            'review': 'Thumbs up.'
-        }
 
-        response = client.post(reverse('api:review-list'), data=review)
-        assert response.status_code == 403
+@pytest.mark.django_db
+def test_review_post_for_newly_reviewed_film_as_authenticated_user(client, user):
+    client.force_login(user)
 
-    def test_review_post_for_newly_reviewed_film_as_authenticated_user(self):
-        user = UserFactory()
-        film = FilmFactory(poster=None)
+    film = FilmFactory(poster=None)
 
-        client = Client()
-        client.force_login(user=user)
+    review = {
+        'user': user.pk,
+        'film': film.pk,
+        'rating': 10,
+        'review': 'Thumbs up.'
+    }
 
-        review = {
-            'user': user.pk,
-            'film': film.pk,
-            'rating': 10,
-            'review': 'Thumbs up.'
-        }
+    response = client.post(reverse('api:review-list'), data=review)
+    assert response.status_code == 201
 
-        response = client.post(reverse('api:review-list'), data=review)
-        assert response.status_code == 201
 
-    def test_review_post_for_previously_reviewed_film_as_authenticated_user(self):
-        user = UserFactory()
-        film = FilmFactory(poster=None)
-        ReviewFactory(user=user, film=film)
+@pytest.mark.django_db
+def test_review_post_for_previously_reviewed_film_as_authenticated_user(client, user):
+    client.force_login(user)
 
-        client = Client()
-        client.force_login(user=user)
+    film = FilmFactory(poster=None)
+    ReviewFactory(user=user, film=film)
 
-        new_review = {
-            'user': user.pk,
-            'film': film.pk,
-            'rating': 10,
-            'review': 'Thumbs up.'
-        }
+    new_review = {
+        'user': user.pk,
+        'film': film.pk,
+        'rating': 10,
+        'review': 'Thumbs up.'
+    }
 
-        response = client.post(reverse('api:review-list'), data=new_review)
-        assert response.status_code == 400
+    response = client.post(reverse('api:review-list'), data=new_review)
+    assert response.status_code == 400
 
-    def test_review_patch_as_unauthenticated_user(self):
-        film = FilmFactory(poster=None)
-        review = ReviewFactory(film=film)
-        client = Client()
 
-        review_edit = {
-            'title': 'TestReviewEdit',
-        }
+@pytest.mark.django_db
+def test_review_patch_as_unauthenticated_user(client):
+    film = FilmFactory(poster=None)
+    review = ReviewFactory(film=film)
 
-        response = client.patch(
-            reverse('api:review-detail', args=[review.pk]),
-            data=review_edit,
-            content_type='application/json'
-        )
-        assert response.status_code == 403
+    review_edit = {
+        'title': 'TestReviewEdit',
+    }
 
-    def test_review_patch_as_reviewer(self):
-        user = UserFactory()
-        film = FilmFactory(poster=None)
-        review = ReviewFactory(film=film, user=user)
+    response = client.patch(
+        reverse('api:review-detail', args=[review.pk]),
+        data=review_edit,
+        content_type='application/json'
+    )
+    assert response.status_code == 403
 
-        client = Client()
-        client.force_login(user=user)
 
-        review_edit = {
-            'title': 'TestReviewEdit',
-        }
+@pytest.mark.django_db
+def test_review_patch_as_reviewer(client, user):
+    client.force_login(user)
 
-        response = client.patch(
-            reverse('api:review-detail', args=[review.pk]),
-            data=review_edit,
-            content_type='application/json'
-        )
-        assert response.status_code == 200
+    film = FilmFactory(poster=None)
+    review = ReviewFactory(film=film, user=user)
 
-    def test_review_patch_as_staff_user(self):
-        film = FilmFactory(poster=None)
-        review = ReviewFactory(film=film)
-        
-        staff_user = UserFactory()
-        staff_user.is_staff = True
-        staff_user.save()
+    review_edit = {
+        'title': 'TestReviewEdit',
+    }
 
-        client = Client()
-        client.force_login(staff_user)
+    response = client.patch(
+        reverse('api:review-detail', args=[review.pk]),
+        data=review_edit,
+        content_type='application/json'
+    )
+    assert response.status_code == 200
 
-        review_edit = {
-            'title': 'TestReviewEdit',
-        }
 
-        response = client.patch(
-            reverse('api:review-detail', args=[review.pk]),
-            data=review_edit,
-            content_type='application/json'
-        )
-        assert response.status_code == 403
+@pytest.mark.django_db
+def test_review_patch_as_staff_user(client, staff):
+    client.force_login(staff)
 
-    def test_review_delete_as_unauthenticated_user(self):
-        film = FilmFactory(poster=None)
-        review = ReviewFactory(film=film)
-        client = Client()
+    film = FilmFactory(poster=None)
+    review = ReviewFactory(film=film)
 
-        response = client.delete(
-            reverse('api:review-detail', args=[review.pk])
-        )
-        assert response.status_code == 403
+    review_edit = {
+        'title': 'TestReviewEdit',
+    }
 
-    def test_review_delete_as_reviewer(self):
-        user = UserFactory()
-        film = FilmFactory(poster=None)
-        review = ReviewFactory(film=film, user=user)
+    response = client.patch(
+        reverse('api:review-detail', args=[review.pk]),
+        data=review_edit,
+        content_type='application/json'
+    )
+    assert response.status_code == 403
 
-        client = Client()
-        client.force_login(user)
 
-        response = client.delete(
-            reverse('api:review-detail', args=[review.pk])
-        )
-        assert response.status_code == 204
+@pytest.mark.django_db
+def test_review_delete_as_unauthenticated_user(client):
+    film = FilmFactory(poster=None)
+    review = ReviewFactory(film=film)
 
-    def test_review_delete_as_staff_user(self):
-        film = FilmFactory(poster=None)
-        review = ReviewFactory(film=film)
+    response = client.delete(
+        reverse('api:review-detail', args=[review.pk])
+    )
+    assert response.status_code == 403
 
-        staff_user = UserFactory()
-        staff_user.is_staff = True
-        staff_user.save()
 
-        client = Client()
-        client.force_login(staff_user)
+@pytest.mark.django_db
+def test_review_delete_as_reviewer(client, user):
+    client.force_login(user)
 
-        response = client.delete(
-            reverse('api:review-detail', args=[review.pk])
-        )
-        assert response.status_code == 204
+    film = FilmFactory(poster=None)
+    review = ReviewFactory(film=film, user=user)
+
+    response = client.delete(
+        reverse('api:review-detail', args=[review.pk])
+    )
+    assert response.status_code == 204
+
+
+@pytest.mark.django_db
+def test_review_delete_as_staff_user(client, staff):
+    client.force_login(staff)
+
+    film = FilmFactory(poster=None)
+    review = ReviewFactory(film=film)
+
+    response = client.delete(
+        reverse('api:review-detail', args=[review.pk])
+    )
+    assert response.status_code == 204
