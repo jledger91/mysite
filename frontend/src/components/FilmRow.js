@@ -50,7 +50,12 @@ const FilmRow = (props) => {
           offset: 0,
         }
       }});
-  }, [dispatch, paginationLimit, params, value]);
+  }, [
+    dispatch,
+    paginationLimit,
+    params,
+    value,
+  ]);
   
   return (
     <div>
