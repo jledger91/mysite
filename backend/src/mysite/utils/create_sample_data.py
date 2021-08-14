@@ -12,28 +12,28 @@ from mysite.models import Film, Review
 
 logger = logging.getLogger(__name__)
 
-NUM_USERS = 50
-NUM_FILMS = 50
-NUM_REVIEWS = 100
 
-
-def create_sample_data() -> None:
+def create_sample_data(
+        num_films: int,
+        num_reviews: int,
+        num_users: int,
+) -> None:
     """
     Populates the database with random data.
     """
 
-    for _ in range(NUM_USERS):
+    for _ in range(num_users):
         user = UserFactory()
         logger.info('User created: %s' % user)
 
-    for _ in range(NUM_FILMS):
+    for _ in range(num_films):
         film = FilmFactory()
         logger.info('Film created: %s' % film)
 
     users = User.objects.filter(is_superuser=False)
     films = Film.objects.all()
 
-    for _ in range(NUM_REVIEWS):
+    for _ in range(num_reviews):
         user_not_reviewed = False
         user, film = None, None
         while not user_not_reviewed:
