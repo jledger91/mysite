@@ -1,152 +1,148 @@
-from django.test import Client, TestCase
 from django.urls import reverse
+
+import pytest
+
+from api.tests.fixtures import (
+    admin,
+    staff,
+    user,
+)
 
 from mysite.factories import FilmFactory, UserFactory
 
 
-class TestFilmViewSet(TestCase):
-    """Test class for the FilmViewSet."""
+@pytest.mark.django_db
+def test_films_get_as_unauthenticated_user(client):
+    film = FilmFactory(poster=None)
 
-    def test_films_get_as_unauthenticated_user(self):
-        film = FilmFactory(poster=None)
-        client = Client()
+    response = client.get(reverse('api:film-list'))
+    assert response.status_code == 200
 
-        response = client.get(reverse('api:film-list'))
-        assert response.status_code == 200
+    response = client.get(reverse('api:film-detail', args=[film.pk]))
+    assert response.status_code == 200
 
-        response = client.get(reverse('api:film-detail', args=[film.pk]))
-        assert response.status_code == 200
 
-    def test_films_post_as_unauthenticated_user(self):
-        client = Client()
+@pytest.mark.django_db
+def test_films_post_as_unauthenticated_user(client):
+    film = {
+        'title': 'TestFilm',
+        'release_date': '2020-01-01',
+        'duration': '02:30:00',
+    }
 
-        film = {
-            'title': 'TestFilm',
-            'release_date': '2020-01-01',
-            'duration': '02:30:00',
-        }
+    response = client.post(reverse('api:film-list'), data=film)
+    assert response.status_code == 403
 
-        response = client.post(reverse('api:film-list'), data=film)
-        assert response.status_code == 403
 
-    def test_films_post_as_authenticated_user(self):
-        user = UserFactory()
+@pytest.mark.django_db
+def test_films_post_as_authenticated_user(client, user):
+    client.force_login(user)
 
-        client = Client()
-        client.force_login(user)
+    film = {
+        'title': 'TestFilm',
+        'release_date': '2020-01-01',
+        'duration': '02:30:00',
+    }
 
-        film = {
-            'title': 'TestFilm',
-            'release_date': '2020-01-01',
-            'duration': '02:30:00',
-        }
+    response = client.post(reverse('api:film-list'), data=film)
+    assert response.status_code == 403
 
-        response = client.post(reverse('api:film-list'), data=film)
-        assert response.status_code == 403
 
-    def test_films_post_as_staff_user(self):
-        staff_user = UserFactory()
-        staff_user.is_staff = True
-        staff_user.save()
+@pytest.mark.django_db
+def test_films_post_as_staff_user(client, staff):
+    client.force_login(staff)
 
-        client = Client()
-        client.force_login(staff_user)
+    film = {
+        'title': 'TestFilm',
+        'release_date': '2020-01-01',
+        'duration': '02:30:00',
+    }
 
-        film = {
-            'title': 'TestFilm',
-            'release_date': '2020-01-01',
-            'duration': '02:30:00',
-        }
+    response = client.post(reverse('api:film-list'), data=film)
+    assert response.status_code == 201
 
-        response = client.post(reverse('api:film-list'), data=film)
-        assert response.status_code == 201
 
-    def test_films_patch_as_unauthenticated_user(self):
-        film = FilmFactory(poster=None)
-        client = Client()
+@pytest.mark.django_db
+def test_films_patch_as_unauthenticated_user(client):
+    film = FilmFactory(poster=None)
 
-        film_edit = {
-            'title': 'TestFilmEdit',
-        }
+    film_edit = {
+        'title': 'TestFilmEdit',
+    }
 
-        response = client.patch(
-            reverse('api:film-detail', args=[film.pk]),
-            data=film_edit,
-            content_type='application/json'
-        )
-        assert response.status_code == 403
+    response = client.patch(
+        reverse('api:film-detail', args=[film.pk]),
+        data=film_edit,
+        content_type='application/json'
+    )
+    assert response.status_code == 403
 
-    def test_films_patch_as_authenticated_user(self):
-        film = FilmFactory(poster=None)
-        user = UserFactory()
 
-        client = Client()
-        client.force_login(user)
+@pytest.mark.django_db
+def test_films_patch_as_authenticated_user(client, user):
+    client.force_login(user)
 
-        film_edit = {
-            'title': 'TestFilmEdit',
-        }
+    film = FilmFactory(poster=None)
 
-        response = client.patch(
-            reverse('api:film-detail', args=[film.pk]),
-            data=film_edit,
-            content_type='application/json'
-        )
-        assert response.status_code == 403
+    film_edit = {
+        'title': 'TestFilmEdit',
+    }
 
-    def test_films_patch_as_staff_user(self):
-        film = FilmFactory(poster=None)
+    response = client.patch(
+        reverse('api:film-detail', args=[film.pk]),
+        data=film_edit,
+        content_type='application/json'
+    )
+    assert response.status_code == 403
 
-        staff_user = UserFactory()
-        staff_user.is_staff = True
-        staff_user.save()
 
-        client = Client()
-        client.force_login(staff_user)
+@pytest.mark.django_db
+def test_films_patch_as_staff_user(client, staff):
+    client.force_login(staff)
 
-        film_edit = {
-            'title': 'TestFilmEdit',
-        }
+    film = FilmFactory(poster=None)
 
-        response = client.patch(
-            reverse('api:film-detail', args=[film.pk]),
-            data=film_edit,
-            content_type='application/json'
-        )
-        assert response.status_code == 200
+    film_edit = {
+        'title': 'TestFilmEdit',
+    }
 
-    def test_films_delete_as_unauthenticated_user(self):
-        film = FilmFactory(poster=None)
-        client = Client()
+    response = client.patch(
+        reverse('api:film-detail', args=[film.pk]),
+        data=film_edit,
+        content_type='application/json'
+    )
+    assert response.status_code == 200
 
-        response = client.delete(
-            reverse('api:film-detail', args=[film.pk])
-        )
-        assert response.status_code == 403
 
-    def test_films_delete_as_authenticated_user(self):
-        film = FilmFactory(poster=None)
-        user = UserFactory()
+@pytest.mark.django_db
+def test_films_delete_as_unauthenticated_user(client):
+    film = FilmFactory(poster=None)
 
-        client = Client()
-        client.force_login(user)
+    response = client.delete(
+        reverse('api:film-detail', args=[film.pk])
+    )
+    assert response.status_code == 403
 
-        response = client.delete(
-            reverse('api:film-detail', args=[film.pk])
-        )
-        assert response.status_code == 403
 
-    def test_films_delete_as_staff_user(self):
-        film = FilmFactory(poster=None)
+@pytest.mark.django_db
+def test_films_delete_as_authenticated_user(client, user):
+    client.force_login(user)
 
-        staff_user = UserFactory()
-        staff_user.is_staff = True
-        staff_user.save()
+    film = FilmFactory(poster=None)
 
-        client = Client()
-        client.force_login(staff_user)
+    response = client.delete(
+        reverse('api:film-detail', args=[film.pk])
+    )
+    assert response.status_code == 403
 
-        response = client.delete(
-            reverse('api:film-detail', args=[film.pk])
-        )
-        assert response.status_code == 204
+
+@pytest.mark.django_db
+def test_films_delete_as_staff_user(client, staff):
+    client.force_login(staff)
+
+    film = FilmFactory(poster=None)
+
+    response = client.delete(
+        reverse('api:film-detail', args=[film.pk])
+    )
+    assert response.status_code == 204
