@@ -72,7 +72,7 @@ shell:
 	$(DJANGO_RUN) "$(MANAGE) shell_plus"
 
 test:
-	$(DJANGO_RUN) "tox"
+	$(DJANGO_RUN) "tox $(f)"
 
 # Postgres --------------------------------------------------------------------
 
