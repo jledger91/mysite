@@ -13,6 +13,7 @@ import Home from './views/Home/Home';
 import FilmDetail from './views/FilmDetail/FilmDetail';
 import FilmList from './views/FilmList/FilmList';
 import Login from './views/Login/Login';
+import NotFound from './views/404/404';
 import Register from './views/Register/Register';
 import ReviewDetail from './views/ReviewDetail/ReviewDetail';
 import ReviewList from './views/ReviewList/ReviewList';
@@ -37,6 +38,8 @@ const App = () => {
     <Route exact path={r.REVIEW_LIST} component={ReviewList} />
     <Route exact path={r.USER_DETAIL} component={UserDetail} />
     <Route exact path={r.USER_LIST} component={UserList} />
+    {/* 404 */}
+    <Route path='*' component={NotFound} />
   </Switch>;
   
   useEffect(() => {
