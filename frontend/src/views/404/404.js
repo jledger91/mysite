@@ -11,7 +11,7 @@ const NotFound = () => {
       </div>
       
       <div className='whoops'>
-        <strong>Whoops!</strong> The page you are looking for is not found.
+        <strong>Whoops!</strong> The page you are looking for does not exist.
       </div>
     </div>
   );
