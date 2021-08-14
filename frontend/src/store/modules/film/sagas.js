@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 
-import { getFilmSaga } from './sagas/getFilm';
-import { getFilmsSaga } from './sagas/getFilms';
+import { getFilmSaga } from './_sagas/getFilm';
+import { getFilmsSaga } from './_sagas/getFilms';
 
 export default function* combinedSagas() {
   yield all([

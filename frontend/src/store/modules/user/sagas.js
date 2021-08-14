@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 
-import { getUserSaga } from './sagas/getUser';
-import { getUsersSaga } from './sagas/getUsers';
+import { getUserSaga } from './_sagas/getUser';
+import { getUsersSaga } from './_sagas/getUsers';
 
 export default function* combinedSagas() {
   yield all([

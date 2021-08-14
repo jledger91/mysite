@@ -1,19 +1,10 @@
 import { getCookie } from './cookies';
 
-/**
- * Generates a GET URL from the base URL and the search parameters.
- * @param url The base URL to search.
- * @param params The search parameters.
- * @returns {string}
- */
-export function encodeURL(url, params) {
-  const params_url = Object.keys(params)
-    .filter(key => params[key] !== undefined)
-    .map(key => key + '=' + encodeURIComponent(params[key]))
-    .join('&');
+// Requests ===================================================================
 
-  return url + "?" + params_url
-}
+const cSRFToken = getCookie('csrftoken');
+
+// Request Methods ------------------------------------------------------------
 
 /**
  * Handles a GET request.
@@ -21,12 +12,12 @@ export function encodeURL(url, params) {
  * @param params Optional GET parameters.
  * @returns {Promise<{json, status, statusMessage}>}
  */
-export const get = async (uri, params = {}) => {
+export const get = async (uri, params ={}) => {
   const url = encodeURL(uri, params);
   const result = await fetch(url, {
     method: 'GET',
     headers: {
-      'X-CSRFToken': getCookie('csrftoken'),
+      'X-CSRFToken': cSRFToken,
     }
   })
   return await handleResponse(result);
@@ -42,12 +33,7 @@ export const get = async (uri, params = {}) => {
 export const patch = async (uri, data, headers={}) => {
   const result = await fetch(uri, {
     method: 'PATCH',
-    body: JSON.stringify(data),
-    headers: {
-      ...headers,
-      'X-CSRFToken': getCookie('csrftoken'),
-      'Content-Type': 'application/json',
-    }
+    ...getSendingDataParams(data, headers),
   })
   return await handleResponse(result);
 }
@@ -55,21 +41,35 @@ export const patch = async (uri, data, headers={}) => {
 /**
  * Handles a POST request.
  * @param uri The URI to send the request to.
- * @param data The PATCH data.
+ * @param data The POST data.
  * @param headers Any optional headers to add to the request.
  * @returns {Promise<{json, status, statusText}>}
  */
 export const post = async (uri, data, headers={}) => {
   const result = await fetch(uri, {
     method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      ...headers,
-      'X-CSRFToken': getCookie('csrftoken'),
-      'Content-Type': 'application/json',
-    }
+    ...getSendingDataParams(data, headers),
   })
   return await handleResponse(result);
+}
+
+// Request Tools --------------------------------------------------------------
+
+/**
+ * Returns request parameters for POST/PUT/PATCH requests.
+ * @param data The data to be sent.
+ * @param headers Any optional headers to add to the request.
+ * @returns {{headers: (*&{"X-CSRFToken": string, "Content-Type": string}), body: string}}
+ */
+const getSendingDataParams = (data, headers) => {
+  return {
+    body: JSON.stringify(data),
+    headers: {
+      'X-CSRFToken': cSRFToken,
+      'Content-Type': 'application/json',
+      ...headers,
+    }
+  }
 }
 
 /**
@@ -77,7 +77,7 @@ export const post = async (uri, data, headers={}) => {
  * @param res The response object.
  * @returns {Promise<{json, status, statusText}>}
  */
-async function handleResponse(res) {
+const handleResponse = async (res) => {
   const ret = { status: res.status, statusText: res.statusText }
   try {
     const json = await res.json()
@@ -85,4 +85,21 @@ async function handleResponse(res) {
   } catch(err) {
     return { ...ret, json: {} }
   }
+}
+
+// URLs =======================================================================
+
+/**
+ * Generates a GET URL from the base URL and the search parameters.
+ * @param url The base URL to search.
+ * @param params The search parameters.
+ * @returns {string}
+ */
+export const encodeURL = (url, params) => {
+  const params_url = Object.keys(params)
+    .filter(key => params[key] !== undefined)
+    .map(key => key + '=' + encodeURIComponent(params[key]))
+    .join('&');
+
+  return url + "?" + params_url
 }

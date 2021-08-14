@@ -1,9 +1,9 @@
 import { all } from 'redux-saga/effects';
 
-import { isAuthenticatedSaga } from './sagas/isAuthenticated';
-import { loginSaga } from './sagas/login';
-import { logoutSaga } from './sagas/logout';
-import { registerSaga } from './sagas/register';
+import { isAuthenticatedSaga } from './_sagas/isAuthenticated';
+import { loginSaga } from './_sagas/login';
+import { logoutSaga } from './_sagas/logout';
+import { registerSaga } from './_sagas/register';
 
 export default function* combinedSagas() {
   yield all([

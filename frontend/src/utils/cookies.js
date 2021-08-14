@@ -5,8 +5,9 @@
  */
 export function getCookie(name) {
   const decodedCookie = decodeURIComponent(document.cookie);
-  const cookieArr = decodedCookie.split('; ');
-  const value = cookieArr.find(cookie => cookie.startsWith(name))
+  const value = decodedCookie
+    .split('; ')
+    .find(cookie => cookie.startsWith(name));
   
   return value ? value.substring(name.length + 1) : '';
 }
