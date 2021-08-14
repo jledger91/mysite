@@ -1,3 +1,5 @@
+# flake8: noqa: F401, F403
+
 from .create_sample_data import *
 
 # TODO: Is there a better place to put this?
