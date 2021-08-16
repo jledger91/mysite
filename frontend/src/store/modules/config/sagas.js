@@ -1,9 +1,9 @@
 import { all } from 'redux-saga/effects';
 
-import { getGoogleClientIdSaga } from './_sagas/getGoogleClientId';
+import { getConfigSaga } from './_sagas/getConfig';
 
 export default function* combinedSagas() {
   yield all([
-    getGoogleClientIdSaga(),
+    getConfigSaga(),
   ]);
 }

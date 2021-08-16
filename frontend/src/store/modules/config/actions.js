@@ -1,2 +1,2 @@
-export const GET_GOOGLE_CLIENT_ID = 'GET_GOOGLE_CLIENT_ID';
-export const SET_GOOGLE_CLIENT_ID = 'SET_GOOGLE_CLIENT_ID';
+export const GET_CONFIG = 'GET_CONFIG';
+export const SET_CONFIG = 'SET_CONFIG';

@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.urls import reverse
 
 import pytest
@@ -71,12 +70,3 @@ def test_logout(client, user):
 
     assert response.status_code == 200
     assert response.data.get('detail') == 'Not logged in'
-
-
-def test_google_client_id_endpoint(client):
-    response = client.get(
-        reverse('api:google_client_id'),
-    )
-    assert response.status_code == 200
-    assert response.data.get('google_client_id') == \
-           settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY

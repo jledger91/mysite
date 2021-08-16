@@ -1,4 +1,4 @@
-import { SET_GOOGLE_CLIENT_ID } from './actions';
+import { SET_CONFIG } from './actions';
 
 export const initialState = {
   googleClientId: undefined,
@@ -6,9 +6,9 @@ export const initialState = {
 
 const configReducer = function (state = initialState, action) {
   switch (action.type) {
-    case SET_GOOGLE_CLIENT_ID:
+    case SET_CONFIG:
       return {
-        googleClientId: action.payload,
+        ...action.payload,
       }
     default:
       return state;

@@ -14,9 +14,9 @@ router.register(r'users', views.UserViewSet, basename='user')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('google_client_id/',
-         views.GoogleClientIdView.as_view(),
-         name='google_client_id'),
+    path('config/',
+         views.ConfigView.as_view(),
+         name='config'),
     path('is_authenticated/',
          views.IsAuthenticatedView.as_view(),
          name='is_authenticated'),
