@@ -24,11 +24,11 @@ const Register = () => {
       required: true,
     },
     {
-      name: 'first_name',
+      name: 'firstName',
       label: 'First Name',
     },
     {
-      name: 'last_name',
+      name: 'lastName',
       label: 'Last Name',
     },
     {

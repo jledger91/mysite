@@ -19,8 +19,8 @@ const FilmDetail = () => {
   const { id } = useParams();
   const film = useSelector(state => state.film?.detail)
   
-  const releaseYear = film?.release_date.slice(0, 4);
-  const averageScore = film?.average_score?.toFixed(1) || '--';
+  const releaseYear = film?.releaseDate.slice(0, 4);
+  const averageScore = film?.averageScore?.toFixed(1) || '--';
   const params = {
     'film': film?.id,
     'limit': 5,
@@ -43,7 +43,7 @@ const FilmDetail = () => {
             {film?.title} ({releaseYear})
           </Typography>
           <Typography variant='h5'>
-            {film?.rating} | {film?.duration} | {film?.release_date} | ★ {averageScore}
+            {film?.rating} | {film?.duration} | {film?.releaseDate} | ★ {averageScore}
           </Typography>
           {film?.synopsis}
         </div>
