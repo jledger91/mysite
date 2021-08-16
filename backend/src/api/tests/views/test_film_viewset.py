@@ -8,7 +8,7 @@ from api.tests.fixtures import (
     user,
 )
 
-from mysite.factories import FilmFactory, UserFactory
+from mysite.factories import FilmFactory
 
 
 @pytest.mark.django_db
