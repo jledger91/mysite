@@ -21,7 +21,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const currentUser = useSelector(state => state.auth.username);
-  const googleClientId = useSelector(state => state.config.google_client_id);
+  const { googleClientId } = useSelector(state => state.config);
   const [username, setUsername] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   

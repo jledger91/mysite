@@ -9,11 +9,8 @@ function* register(action) {
   const result = yield http.post('/api/users/', data);
   
   if (result.status === 201) {
-    yield put({ type: LOGIN, payload: {
-        username: data.username,
-        password: data.password,
-      }
-    });
+    const { username, password } = data;
+    yield put({ type: LOGIN, payload: { username, password }});
   }
 }
 

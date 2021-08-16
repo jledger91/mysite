@@ -17,8 +17,8 @@ const FilmCard = (props) => {
   
   const history = useHistory();
   
-  const releaseYear = film.release_date.slice(0, 4);
-  const averageScore = film.average_score?.toFixed(1) || '--';
+  const releaseYear = film.releaseDate.slice(0, 4);
+  const averageScore = film.averageScore?.toFixed(1) || '--';
   
   const handleOnClick = () => {
     history.push(FILM_DETAIL.replace(':id', film.id))
