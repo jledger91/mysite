@@ -21,6 +21,7 @@ import UserDetail from './views/UserDetail/UserDetail';
 import UserList from './views/UserList/UserList';
 import { history, store } from './store';
 import { IS_AUTHENTICATED } from './store/modules/auth/actions';
+import { GET_CONFIG } from './store/modules/config/actions';
 
 import 'antd/dist/antd.css';
 import './App.scss';
@@ -44,6 +45,7 @@ const App = () => {
   
   useEffect(() => {
     store.dispatch({ type: IS_AUTHENTICATED });
+    store.dispatch({ type: GET_CONFIG });
   }, []);
   
   return (
