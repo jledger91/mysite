@@ -1,10 +1,8 @@
 import { getCookie } from './cookies';
 
+const csrfToken = getCookie('csrftoken');
+
 // Requests ===================================================================
-
-const cSRFToken = getCookie('csrftoken');
-
-// Request Methods ------------------------------------------------------------
 
 /**
  * Handles a GET request.
@@ -13,11 +11,12 @@ const cSRFToken = getCookie('csrftoken');
  * @returns {Promise<{json, status, statusMessage}>}
  */
 export const get = async (uri, params ={}) => {
-  const url = encodeURL(uri, params);
+  const urlParams = new URLSearchParams(params).toString()
+  const url =`${uri}?${urlParams}`;
   const result = await fetch(url, {
     method: 'GET',
     headers: {
-      'X-CSRFToken': cSRFToken,
+      'X-CSRFToken': csrfToken,
     }
   })
   return await handleResponse(result);
@@ -53,7 +52,7 @@ export const post = async (uri, data, headers={}) => {
   return await handleResponse(result);
 }
 
-// Request Tools --------------------------------------------------------------
+// Requests Tools -------------------------------------------------------------
 
 /**
  * Returns request parameters for POST/PUT/PATCH requests.
@@ -65,7 +64,7 @@ const getSendingDataParams = (data, headers) => {
   return {
     body: JSON.stringify(data),
     headers: {
-      'X-CSRFToken': cSRFToken,
+      'X-CSRFToken': csrfToken,
       'Content-Type': 'application/json',
       ...headers,
     }
@@ -85,21 +84,4 @@ const handleResponse = async (res) => {
   } catch(err) {
     return { ...ret, json: {} }
   }
-}
-
-// URLs =======================================================================
-
-/**
- * Generates a GET URL from the base URL and the search parameters.
- * @param url The base URL to search.
- * @param params The search parameters.
- * @returns {string}
- */
-export const encodeURL = (url, params) => {
-  const params_url = Object.keys(params)
-    .filter(key => params[key] !== undefined)
-    .map(key => key + '=' + encodeURIComponent(params[key]))
-    .join('&');
-
-  return url + "?" + params_url
 }
