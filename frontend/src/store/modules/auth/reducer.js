@@ -8,15 +8,18 @@ export const initialState = {
 
 const authReducer = function (state = initialState, action) {
   switch (action.type) {
-    case LOGGED_IN:
+    case LOGGED_IN: {
       return {
         ...state,
         ...action.payload,
-      }
-    case LOGGED_OUT:
+      };
+    }
+    case LOGGED_OUT: {
       return initialState;
-    default:
+    }
+    default: {
       return state;
+    }
   }
 }
 

@@ -6,12 +6,14 @@ export const initialState = {
 
 const configReducer = function (state = initialState, action) {
   switch (action.type) {
-    case SET_CONFIG:
+    case SET_CONFIG: {
       return {
         ...action.payload,
-      }
-    default:
+      };
+    }
+    default: {
       return state;
+    }
   }
 }
 

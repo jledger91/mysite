@@ -11,23 +11,29 @@ export const initialState = {
 
 const userReducer = function (state = initialState, action) {
   switch (action.type) {
-    case CLEAR_USER:
+    case CLEAR_USER: {
       return {
         ...state,
         detail: undefined,
-      }
-    case SET_USER:
+      };
+    }
+    case SET_USER: {
+      const { detail } = action.payload;
       return {
         ...state,
-        detail: action.payload.detail,
-      }
-    case SET_USERS:
+        detail,
+      };
+    }
+    case SET_USERS: {
+      const { list } = action.payload;
       return {
         ...state,
-        list: action.payload.list,
-      }
-    default:
+        list,
+      };
+    }
+    default: {
       return state;
+    }
   }
 }
 

@@ -11,23 +11,29 @@ export const initialState = {
 
 const reviewReducer = function (state = initialState, action) {
   switch (action.type) {
-    case CLEAR_REVIEW:
+    case CLEAR_REVIEW: {
       return {
         ...state,
         detail: undefined,
-      }
-    case SET_REVIEW:
+      };
+    }
+    case SET_REVIEW: {
+      const { detail } = action.payload;
       return {
         ...state,
-        detail: action.payload.detail,
-      }
-    case SET_REVIEWS:
+        detail,
+      };
+    }
+    case SET_REVIEWS: {
+      const { list } = action.payload;
       return {
         ...state,
-        list: action.payload.list,
-      }
-    default:
+        list,
+      };
+    }
+    default: {
       return state;
+    }
   }
 }
 
