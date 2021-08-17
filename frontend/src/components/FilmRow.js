@@ -72,10 +72,9 @@ const FilmRow = (props) => {
               <KeyboardArrowLeftIcon/>
             </Button>
             <List className='film-row'>
-              {
-                films?.results?.map(film =>
-                  <FilmCard key={film.id} film={film} />)
-              }
+              {films?.results?.map(film => (
+                <FilmCard key={film.id} film={film} />)
+              )}
             </List>
             <Button onClick={onPageTurn(1)}
                     disabled={nextButtonDisabled}>

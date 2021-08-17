@@ -56,17 +56,15 @@ const FilmList = () => {
       <div className='page-header'>
       
       </div>
-      {
-        categories.map(category =>
-          <div className={category.key} key={category.key}>
-            <FilmRow title={category.title}
-                     value={category.key}
-                     params={category.params}
-                     paginationLimit={PAGINATION_LIMIT}
-                     pageTurnOffset={PAGE_TURN_OFFSET} />
-          </div>
-        )
-      }
+      {categories.map(category => (
+        <div className={category.key} key={category.key}>
+          <FilmRow title={category.title}
+                   value={category.key}
+                   params={category.params}
+                   paginationLimit={PAGINATION_LIMIT}
+                   pageTurnOffset={PAGE_TURN_OFFSET} />
+        </div>
+      ))}
     </div>
   );
 }

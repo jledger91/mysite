@@ -37,14 +37,14 @@ const HomeCarousel = () => {
   return (
     <Carousel className='home-carousel'
               autoplay>
-      {
-        films?.results?.map(film => <div key={film.id}>
+      {films?.results?.map(film => (
+        <div key={film.id}>
           <CardActionArea onClick={handleOnClick(film.id)}>
             <CardMedia className='poster'
                        image={film.poster} />
           </CardActionArea>
-        </div>)
-      }
+        </div>
+      ))}
     </Carousel>
   );
 }

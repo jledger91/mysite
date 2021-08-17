@@ -63,17 +63,15 @@ const Drawer = (props) => {
           </ListItemIcon>
         </ListItem>
         <Divider/>
-        {
-          items.map(item =>
-            <ListItem className='list-item'
-                      button
-                      key={item.label}
-                      onClick={handleOnClick(item.path)}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText>{item.label}</ListItemText>
-            </ListItem>
-          )
-        }
+        {items.map(item => (
+          <ListItem className='list-item'
+                    button
+                    key={item.label}
+                    onClick={handleOnClick(item.path)}>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText>{item.label}</ListItemText>
+          </ListItem>
+        ))}
       </List>
     </MuiDrawer>
   );

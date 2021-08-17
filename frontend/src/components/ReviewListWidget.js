@@ -18,7 +18,7 @@ const ReviewListWidget = (props) => {
   const reviews = useSelector(state => state.review.list)
   
   const fullName = (review) =>
-    `${review.user_first_name} ${review.user_last_name}`;
+    `${review.userFirstName} ${review.userLastName}`;
   const onReviewClick = (id) => () => {
     history.push(REVIEW_DETAIL.replace(':id', id))
   }
@@ -34,7 +34,7 @@ const ReviewListWidget = (props) => {
           <div className='review-card'
                key={review.id}>
             <Typography variant='h6'>
-              ★ {review.rating} - {fullName(review)} @{review.user_username}
+              ★ {review.rating} - {fullName(review)} @{review.userUsername}
             </Typography>
             <CardActionArea className='review'
                             onClick={onReviewClick(review.id)}>

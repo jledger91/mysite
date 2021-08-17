@@ -69,17 +69,15 @@ const Register = () => {
                  handleSubmit={handleSubmit}
                  submitDisabled={registerDisabled}
                  submitLabel='Register'>
-        {
-          fields.map(field =>
-            <TextField className='form-field'
-                       key={field.name}
-                       label={field.label}
-                       required={field.required}
-                       color='secondary'
-                       type={field.type}
-                       onChange={handleFormChange(field.name)}/>
-          )
-        }
+        {fields.map(field => (
+          <TextField className='form-field'
+                     key={field.name}
+                     label={field.label}
+                     required={field.required}
+                     color='secondary'
+                     type={field.type}
+                     onChange={handleFormChange(field.name)}/>
+        ))}
       </LoginCard>
     </div>
   );

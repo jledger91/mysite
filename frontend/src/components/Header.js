@@ -43,15 +43,14 @@ const Header = () => {
             </Button>
           </div>
           <div className='header-auth'>
-            {
-              auth?.username ?
-                <ProfileMenu/>
-                :
-                <Button color='inherit'
-                        onClick={handleLoginClick}>
-                  Sign In
-                </Button>
-            }
+            {auth?.username ? (
+              <ProfileMenu/>
+            ):(
+              <Button color='inherit'
+                      onClick={handleLoginClick}>
+                Sign In
+              </Button>
+            )}
           </div>
         </Toolbar>
       </AppBar>
