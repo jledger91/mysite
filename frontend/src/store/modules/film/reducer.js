@@ -19,7 +19,7 @@ const filmReducer = function (state = initialState, action) {
       };
     }
     case CLEAR_FILMS: {
-      const { key } = action.payload;
+      const key = action.payload;
       return {
         ...state,
         list: {

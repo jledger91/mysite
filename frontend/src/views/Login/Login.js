@@ -1,3 +1,5 @@
+import './Login.scss';
+
 import {
   useCallback,
   useEffect,
@@ -13,8 +15,6 @@ import { TextField } from '@material-ui/core';
 import LoginCard from '../../components/LoginCard';
 import { HOME, REGISTER } from '../../routes';
 import { LOGIN } from '../../store/modules/auth/actions';
-
-import './Login.scss';
 
 const Login = () => {
   

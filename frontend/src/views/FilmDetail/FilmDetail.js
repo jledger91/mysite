@@ -33,26 +33,28 @@ const FilmDetail = () => {
   
   return (
     <div className='film-detail-view'>
-      <div className='film-details-container'>
-        <Card className='film-card'>
-          <CardMedia className='poster'
-                     image={film?.poster} />
-        </Card>
-        <div className='film-details'>
-          <Typography variant='h4'>
-            {film?.title} ({releaseYear})
-          </Typography>
-          <Typography variant='h5'>
-            {film?.rating} | {film?.duration} | {film?.releaseDate} | ★ {averageScore}
-          </Typography>
-          {film?.synopsis}
+      {film && (
+        <div>
+          <div className='film-details-container'>
+            <Card className='film-card'>
+              <CardMedia className='poster'
+                         image={film.poster} />
+            </Card>
+            <div className='film-details'>
+              <Typography variant='h4'>
+                {film.title} ({releaseYear})
+              </Typography>
+              <Typography variant='h5'>
+                {film.rating} | {film.duration} | {film.releaseDate} | ★ {averageScore}
+              </Typography>
+              {film.synopsis}
+            </div>
+          </div>
+          <div className='review-list-container'>
+            <ReviewListWidget params={params} />
+          </div>
         </div>
-      </div>
-      <div className='review-list-container'>
-        {
-          film && <ReviewListWidget params={params} />
-        }
-      </div>
+      )}
     </div>
   );
 }

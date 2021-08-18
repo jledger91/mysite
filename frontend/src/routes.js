@@ -5,5 +5,6 @@ export const LOGIN = '/login';
 export const REGISTER = '/register';
 export const REVIEW_DETAIL = '/reviews/:id';
 export const REVIEW_LIST = '/reviews';
+export const SEARCH = '/search';
 export const USER_DETAIL = '/users/:id';
 export const USER_LIST = '/users';
