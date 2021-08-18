@@ -11,10 +11,10 @@ function* getFilm(action) {
   if (result.status === 200) {
     yield put({ type: SET_FILM, payload: {
         detail: result.json,
-      }})
+      }});
   }
 }
 
 export function* getFilmSaga() {
-  yield takeLatest(GET_FILM, getFilm)
+  yield takeLatest(GET_FILM, getFilm);
 }

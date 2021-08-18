@@ -18,7 +18,7 @@ export const store = createStore(
   composeWithDevTools(applyMiddleware(
     routerMiddleware(history),
     sagaMiddleware,
-  ))
+  )),
 )
 
 sagaMiddleware.run(rootSaga);

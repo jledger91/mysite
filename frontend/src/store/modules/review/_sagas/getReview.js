@@ -11,10 +11,10 @@ function* getReview(action) {
   if (result.status === 200) {
     yield put({ type: SET_REVIEW, payload: {
         detail: result.json,
-      }})
+      }});
   }
 }
 
 export function* getReviewSaga() {
-  yield takeLatest(GET_REVIEW, getReview)
+  yield takeLatest(GET_REVIEW, getReview);
 }

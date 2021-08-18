@@ -11,10 +11,10 @@ function* getUsers(action) {
   if (result.status === 200) {
     yield put({ type: SET_USERS, payload: {
         list: result.json.results,
-      }})
+      }});
   }
 }
 
 export function* getUsersSaga() {
-  yield takeLatest(GET_USERS, getUsers)
+  yield takeLatest(GET_USERS, getUsers);
 }

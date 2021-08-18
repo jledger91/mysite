@@ -7,6 +7,7 @@ function* getFilms(action) {
   const { key, params } = action.payload;
   
   const result = yield http.get('/api/films/', params);
+  
   if (result.status === 200) {
     yield put({ type: SET_FILMS, payload: {
         key: key,
@@ -19,10 +20,10 @@ function* getFilms(action) {
             previous: result.json.previous,
           }
         },
-      }})
+      }});
   }
 }
 
 export function* getFilmsSaga() {
-  yield takeEvery(GET_FILMS, getFilms)
+  yield takeEvery(GET_FILMS, getFilms);
 }
