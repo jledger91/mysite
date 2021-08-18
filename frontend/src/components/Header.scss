@@ -2,14 +2,22 @@
 
   .app-bar {
     background-color: #d9534f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .header-main {
+      position: fixed;
+      left: 23px;
+    }
+
+    .header-search {
+      width: 20rem;
     }
 
     .header-auth {
-      padding-right: 2rem;
       position: fixed;
-      right: 0;
+      right: 23px;
     }
   }
 }

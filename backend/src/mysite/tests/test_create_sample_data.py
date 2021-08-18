@@ -30,7 +30,7 @@ def test_flush_and_create_sample_data():
 
 
 def assert_instance_counts():
-    """Asserts all model instance counts match to the set number"""
+    """Asserts all model instance counts match to the set number."""
 
     assert Film.objects.count() == NUM_INSTANCES.get('films')
     assert Review.objects.count() == NUM_INSTANCES.get('reviews')

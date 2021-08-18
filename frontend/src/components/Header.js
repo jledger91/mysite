@@ -1,3 +1,5 @@
+import './Header.scss';
+
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -11,14 +13,15 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { HOME, LOGIN } from '../routes';
+import { useSearchParams } from '../utils/url';
 import Drawer from './Drawer';
 import ProfileMenu from './ProfileMenu';
-
-import './Header.scss';
+import SearchBar from './SearchBar';
 
 const Header = () => {
   
   const history = useHistory();
+  const { query } = useSearchParams();
   const { auth } = useSelector(state => state);
   const [drawerOpen, setDrawerOpen] = useState(false);
   
@@ -42,6 +45,11 @@ const Header = () => {
               MySite
             </Button>
           </div>
+          
+          <div className='header-search'>
+            <SearchBar initialValue={query} />
+          </div>
+          
           <div className='header-auth'>
             {auth?.username ? (
               <ProfileMenu/>

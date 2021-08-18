@@ -17,6 +17,7 @@ import NotFound from './views/404/404';
 import Register from './views/Register/Register';
 import ReviewDetail from './views/ReviewDetail/ReviewDetail';
 import ReviewList from './views/ReviewList/ReviewList';
+import Search from './views/Search/Search';
 import UserDetail from './views/UserDetail/UserDetail';
 import UserList from './views/UserList/UserList';
 import { history, store } from './store';
@@ -37,6 +38,7 @@ const App = () => {
     <Route exact path={r.REGISTER} component={Register} />
     <Route exact path={r.REVIEW_DETAIL} component={ReviewDetail} />
     <Route exact path={r.REVIEW_LIST} component={ReviewList} />
+    <Route exact path={r.SEARCH} component={Search} />
     <Route exact path={r.USER_DETAIL} component={UserDetail} />
     <Route exact path={r.USER_LIST} component={UserList} />
     {/* 404 */}
