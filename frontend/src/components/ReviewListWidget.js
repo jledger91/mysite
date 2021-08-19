@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { CardActionArea, Typography } from '@material-ui/core';
 
 import { REVIEW_DETAIL } from '../routes';
-import { GET_REVIEWS } from '../store/modules/review/actions';
+import { CLEAR_REVIEWS, GET_REVIEWS } from '../store/modules/review/actions';
 
 import './ReviewListWidget.scss';
 
@@ -24,8 +24,9 @@ const ReviewListWidget = (props) => {
   }
   
   useEffect(() => {
-    dispatch({ type: GET_REVIEWS, payload: params })
-  }, [dispatch, params])
+    dispatch({ type: GET_REVIEWS, payload: params });
+    return () => dispatch({ type: CLEAR_REVIEWS });
+  }, [dispatch, params]);
   
   return (
     <div className='review-list-widget'>

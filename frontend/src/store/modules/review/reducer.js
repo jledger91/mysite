@@ -1,5 +1,6 @@
 import {
   CLEAR_REVIEW,
+  CLEAR_REVIEWS,
   SET_REVIEW,
   SET_REVIEWS,
 } from './actions';
@@ -15,6 +16,12 @@ const reviewReducer = function (state = initialState, action) {
       return {
         ...state,
         detail: undefined,
+      };
+    }
+    case CLEAR_REVIEWS: {
+      return {
+        ...state,
+        list: undefined,
       };
     }
     case SET_REVIEW: {

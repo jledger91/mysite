@@ -32,7 +32,7 @@ const HomeCarousel = () => {
           offset: 0,
         },
       }});
-  }, [dispatch])
+  }, [dispatch]);
   
   return (
     <Carousel className='home-carousel'
