@@ -3,11 +3,11 @@
   height: 100%;
   width: 100%;
   overflow: scroll;
+  display: flex;
+  justify-content: center;
 
   .page-content {
-    justify-content: center;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 11px;
     width: 80%;
     padding: 4rem 0 4rem 0;
   }
