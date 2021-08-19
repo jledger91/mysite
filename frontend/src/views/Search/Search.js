@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Typography } from '@material-ui/core';
+
 import { CLEAR_FILMS, GET_FILMS } from '../../store/modules/film/actions';
 import { useSearchParams } from '../../utils/url';
+
+import FilmCardSearch from '../../components/FilmCardSearch';
 
 import './Search.scss';
 
@@ -25,15 +29,14 @@ const Search = () => {
       {results?.length ? (
         <div className='results-list'>
           {results.map(result => (
-            // TODO: Make a film search card component.
-            <div key={result.id}>
-              {result.title}
-            </div>
+            <FilmCardSearch key={result.id} film={result} />
           ))}
         </div>
       ) : (
         <div className='no-results'>
-          No results.
+          <Typography variant='h5'>
+            No results.
+          </Typography>
         </div>
       )}
     </div>
