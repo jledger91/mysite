@@ -1,4 +1,7 @@
 .header-component {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 
   .app-bar {
     background-color: #d9534f;

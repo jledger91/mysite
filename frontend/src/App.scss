@@ -1,5 +1,4 @@
 .page {
-  position: fixed;
   height: 100%;
   width: 100%;
   overflow: scroll;
@@ -7,8 +6,7 @@
   justify-content: center;
 
   .page-content {
-    margin-left: 11px;
     width: 80%;
-    padding: 4rem 0 4rem 0;
+    padding: 7rem 0 4rem 0;
   }
 }
