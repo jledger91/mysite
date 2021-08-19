@@ -54,8 +54,8 @@ const App = () => {
     <Suspense fallback={Loading}>
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <Header/>
           <div className='page'>
+            <Header/>
             <div className='page-content'>
               {Routes}
             </div>

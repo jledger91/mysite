@@ -34,7 +34,7 @@ const Header = () => {
     <div className='header-component'>
       <AppBar className='app-bar'
               position='static'>
-        <Toolbar>
+        <Toolbar className='toolbar'>
           <div className='header-main'>
             <IconButton color='inherit'
                         onClick={handleDrawerClick}>

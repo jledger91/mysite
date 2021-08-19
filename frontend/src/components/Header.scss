@@ -1,28 +1,35 @@
 .header-component {
   position: fixed;
-  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1;
 
   .app-bar {
     background-color: #d9534f;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    .header-main {
-      position: fixed;
-      left: 23px;
-    }
-
-    .header-search {
-      width: 20rem;
+    .toolbar {
+      width: calc(100% - 11px);
       display: flex;
       justify-content: center;
-    }
+      align-items: center;
+      position: relative;
 
-    .header-auth {
-      position: fixed;
-      right: 23px;
+      .header-main {
+        position: absolute;
+        left: 23px;
+      }
+
+      .header-search {
+        width: 20rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      .header-auth {
+        position: absolute;
+        right: 23px;
+      }
     }
   }
 }
