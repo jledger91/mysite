@@ -11,3 +11,6 @@ __pycache__/
 # tox files
 .tox
 .coverage
+
+# PyCharm
+.idea/

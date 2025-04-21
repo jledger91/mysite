@@ -5,13 +5,11 @@ include .env
 
 DJANGO_RUN = $(call DOCKER_COMPOSE_RUN, django)
 
-DOCKER_COMPOSE = sudo docker-compose
+DOCKER_COMPOSE = docker compose
 
-DOCKER_COMPOSE_EXEC = $(DOCKER_COMPOSE) exec $(1) bash -c
+DOCKER_COMPOSE_EXEC = $(DOCKER_COMPOSE) exec $(1)
 
-DOCKER_COMPOSE_RUN = $(DOCKER_COMPOSE) run --rm $(1) bash -c
-
-MANAGE = python3 manage.py
+DOCKER_COMPOSE_RUN = $(DOCKER_COMPOSE) run --rm $(1)
 
 NPM = cd frontend; npm
 
@@ -21,7 +19,6 @@ POSTGRES_EXEC = $(call DOCKER_COMPOSE_EXEC, postgres)
 # =============================================================================
 
 # General ---------------------------------------------------------------------
-
 env:
 	cp .env.template .env
 
@@ -42,17 +39,17 @@ up:
 # Django ----------------------------------------------------------------------
 
 collect-static:
-	$(DJANGO_RUN) "$(MANAGE) collectstatic"
+	$(DJANGO_RUN) collectstatic
 
 create-sample-data:
-	$(DJANGO_RUN) "$(MANAGE) createsampledata"
+	$(DJANGO_RUN) createsampledata
 
 create-super-user:
-	$(DJANGO_RUN) "$(MANAGE) createsuperuser"
+	$(DJANGO_RUN) createsuperuser
 
 flush-and-create-sample-data:
 	-sudo rm --force data/media/posters/*
-	$(DJANGO_RUN) "$(MANAGE) createsampledata --flush"
+	$(DJANGO_RUN) createsampledata --flush
 
 install-backend: \
 	build \
@@ -63,21 +60,21 @@ install-backend: \
 	create-super-user
 
 make-migrations:
-	$(DJANGO_RUN) "$(MANAGE) makemigrations"
+	$(DJANGO_RUN) makemigrations
 
 migrate:
-	$(DJANGO_RUN) "$(MANAGE) migrate"
+	$(DJANGO_RUN) migrate
 
 shell:
-	$(DJANGO_RUN) "$(MANAGE) shell_plus"
+	$(DJANGO_RUN) shell_plus
 
 test:
-	$(DJANGO_RUN) "tox $(f)"
+	$(DJANGO_RUN) tox $(f)
 
 # Postgres --------------------------------------------------------------------
 
 psql:
-	$(POSTGRES_EXEC) "psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)"
+	$(POSTGRES_EXEC) psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)
 
 # React -----------------------------------------------------------------------
 
