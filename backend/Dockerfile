@@ -12,10 +12,9 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 ENV PATH="/root/.local/bin:$PATH"
 
 RUN mkdir /app
-ADD src /app/src
-COPY pyproject.toml poetry.lock /app/src/
+COPY pyproject.toml poetry.lock /app/
 
-WORKDIR /app/src
+WORKDIR /app
 
 ARG DEPLOYMENT_ENVIRONMENT=prod
 RUN if [ "$DEPLOYMENT_ENVIRONMENT" = "local" ]; then \
@@ -23,6 +22,9 @@ RUN if [ "$DEPLOYMENT_ENVIRONMENT" = "local" ]; then \
     else \
         poetry install --without dev; \
     fi
+
+ADD src /app/src
+WORKDIR /app/src
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
