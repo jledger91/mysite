@@ -2,18 +2,27 @@ FROM python:3.13-slim
 
 RUN apt-get update && apt-get install -y \
     tox \
-    postgresql
+    postgresql \
+    curl \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /django
+RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV PATH="/root/.local/bin:$PATH"
 
-ADD src /django/src
-ADD requirements/ /django/requirements
+RUN mkdir /app
+ADD src /app/src
+COPY pyproject.toml poetry.lock /app/src/
 
-ARG DEPLOYMENT_ENVIRONMENT
-RUN pip install --upgrade pip
-RUN pip install -r /django/requirements/${DEPLOYMENT_ENVIRONMENT}.txt
+WORKDIR /app/src
 
-WORKDIR /django/src
+ARG DEPLOYMENT_ENVIRONMENT=prod
+RUN if [ "$DEPLOYMENT_ENVIRONMENT" = "local" ]; then \
+        poetry install --with dev; \
+    else \
+        poetry install --without dev; \
+    fi
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

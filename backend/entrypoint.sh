@@ -1,6 +1,7 @@
 #!/bin/sh
 
 case $1 in
-    gunicorn|tox) exec "$@";;
-    *)            exec python manage.py "$@";;
+    bash|sh)      exec "$@";;
+    gunicorn|tox) exec poetry run "$@";;
+    *)            exec poetry run python manage.py "$@";;
 esac

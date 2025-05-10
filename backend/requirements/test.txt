@@ -1,8 +1,0 @@
--r base.txt
-
-pytest
-pytest-cov
-pytest-django
-pytest-flake8
-pytest-pep8
-tox
