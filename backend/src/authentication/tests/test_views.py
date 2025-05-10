@@ -11,7 +11,7 @@ def test_login_view_with_valid_credentials(client, user):
     }
 
     response = client.post(
-        reverse("auth:login"),
+        reverse("api:auth:login"),
         data=credentials,
     )
     assert response.status_code == 200
@@ -25,7 +25,7 @@ def test_login_view_with_invalid_credentials(client, user):
     }
 
     response = client.post(
-        reverse("auth:login"),
+        reverse("api:auth:login"),
         data=credentials,
     )
     assert response.status_code == 400
@@ -36,7 +36,7 @@ def test_is_authenticated_with_logged_in_user(client, user):
     client.force_login(user)
 
     response = client.post(
-        reverse("auth:is_authenticated"),
+        reverse("api:auth:is_authenticated"),
     )
 
     assert response.status_code == 200
@@ -46,7 +46,7 @@ def test_is_authenticated_with_logged_in_user(client, user):
 @pytest.mark.django_db
 def test_is_authenticated_with_logged_out_user(client):
     response = client.post(
-        reverse("auth:is_authenticated"),
+        reverse("api:auth:is_authenticated"),
     )
 
     assert response.status_code == 200
@@ -58,12 +58,12 @@ def test_logout(client, user):
     client.force_login(user)
 
     response = client.post(
-        reverse("auth:logout"),
+        reverse("api:auth:logout"),
     )
     assert response.status_code == 200
 
     response = client.post(
-        reverse("auth:is_authenticated"),
+        reverse("api:auth:is_authenticated"),
     )
 
     assert response.status_code == 200
