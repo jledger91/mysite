@@ -1,4 +1,6 @@
+from authentication.serializers import LoginSerializer
 from django.contrib.auth import authenticate, login, logout
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -22,20 +24,25 @@ class IsAuthenticatedView(APIView):
                         "is_staff": user.is_staff,
                     },
                 },
-                status=200,
+                status=status.HTTP_200_OK,
             )
 
-        return Response({"detail": "Not logged in"}, status=200)
+        return Response({"detail": "Not logged in"}, status=status.HTTP_200_OK)
 
 
 class LoginView(APIView):
     """A view for session-authentication login."""
 
-    def post(self, *args, **kwargs):
-        username = self.request.data.get("username", "")
-        password = self.request.data.get("password", "")
+    serializer_class = LoginSerializer
 
-        user = authenticate(username=username, password=password)
+    def post(self, *args, **kwargs):
+        serializer = self.serializer_class(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user = authenticate(
+            username=serializer.validated_data["username"],
+            password=serializer.validated_data["password"],
+        )
         if user:
             login(self.request, user)
             return Response(
@@ -48,10 +55,12 @@ class LoginView(APIView):
                         "is_staff": user.is_staff,
                     },
                 },
-                status=200,
+                status=status.HTTP_200_OK,
             )
 
-        return Response({"detail": "Invalid credentials"}, status=400)
+        return Response(
+            {"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 class LogoutView(APIView):
@@ -59,4 +68,4 @@ class LogoutView(APIView):
 
     def post(self, *args, **kwargs):
         logout(self.request)
-        return Response({"detail": "Success"}, status=200)
+        return Response({"detail": "Success"}, status=status.HTTP_200_OK)
