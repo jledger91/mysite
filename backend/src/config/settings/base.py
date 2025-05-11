@@ -51,6 +51,7 @@ LOCAL_APPS = [
     "authentication",
     "demo",
     "films",
+    "recommendations",
     "reviews",
     "users",
 ]
