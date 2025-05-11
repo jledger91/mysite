@@ -1,6 +1,7 @@
 from config.permissions import IsSelfOrReadOnly, IsSuperuser
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
+from recommendations.models import Recommendation
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from users.filters import UserFilter
@@ -9,6 +10,7 @@ from users.serializers import (
     AddToWatchedSerializer,
     UserChangePasswordSerializer,
     UserCreateSerializer,
+    UserRecommendationsSerializer,
     UserSerializer,
     UserWatchedFilmSerializer,
 )
@@ -24,8 +26,11 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = User.objects.order_by("id")
 
-        if self.action == "watched_films":
-            return WatchedFilm.objects.select_related("film")
+        match self.action:
+            case "watched_films":
+                return WatchedFilm.objects.select_related("film")
+            case "recommendations":
+                return Recommendation.objects.select_related("film")
 
         return (
             queryset
@@ -34,7 +39,10 @@ class UserViewSet(viewsets.ModelViewSet):
         )
 
     def filter_queryset(self, queryset):
-        if self.action == "watched_films":
+        if self.action in {
+            "watched_films",
+            "recommendations",
+        }:
             return queryset.filter(user_id=self.kwargs.get("pk"))
 
         return super().filter_queryset(queryset)
@@ -49,6 +57,8 @@ class UserViewSet(viewsets.ModelViewSet):
                 return UserWatchedFilmSerializer
             case "add_to_watched":
                 return AddToWatchedSerializer
+            case "recommendations":
+                return UserRecommendationsSerializer
 
         return UserSerializer
 
@@ -63,3 +73,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=("post",), url_path="add-to-watched")
     def add_to_watched(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
+    @action(detail=True, methods=("get",), url_path="recommendations")
+    def recommendations(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from ext.rest_framework.serializers import DynamicFieldsSerializerMixin
 from films.serializers import FilmSerializer
+from recommendations.models import Recommendation
 from rest_framework import serializers
 from users.models import WatchedFilm
 
@@ -128,3 +129,13 @@ class AddToWatchedSerializer(serializers.ModelSerializer):
             film_id=film_id, user_id=user_id, defaults=validated_data
         )
         return watched_film
+
+
+class UserRecommendationsSerializer(serializers.ModelSerializer):
+    """Serializer for the WatchedFilm model."""
+
+    film = FilmSerializer(read_only=True)
+
+    class Meta:
+        model = Recommendation
+        fields = ("film",)
