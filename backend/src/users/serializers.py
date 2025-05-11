@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from ext.rest_framework.serializers import DynamicFieldsSerializerMixin
+from films.serializers import FilmSerializer
 from rest_framework import serializers
+from users.models import WatchedFilm
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -91,3 +93,38 @@ class UserChangePasswordSerializer(
         self.instance.set_password(new_password)
         self.instance.save()
         return self.instance
+
+
+class UserWatchedFilmSerializer(serializers.ModelSerializer):
+    """Serializer for the WatchedFilm model."""
+
+    film = FilmSerializer(read_only=True)
+
+    class Meta:
+        model = WatchedFilm
+        fields = (
+            "film",
+            "date_watched",
+        )
+
+
+class AddToWatchedSerializer(serializers.ModelSerializer):
+    """Serializer for the WatchedFilm model."""
+
+    film_id = serializers.IntegerField(source="film.id")
+    date_watched = serializers.DateField(required=False)
+
+    class Meta:
+        model = WatchedFilm
+        fields = (
+            "film_id",
+            "date_watched",
+        )
+
+    def create(self, validated_data):
+        film_id = validated_data.pop("film").get("id")
+        user_id = self.context["view"].kwargs.get("pk")
+        watched_film, _ = WatchedFilm.objects.update_or_create(
+            film_id=film_id, user_id=user_id, defaults=validated_data
+        )
+        return watched_film
