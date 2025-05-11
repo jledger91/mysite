@@ -12,11 +12,21 @@ x-django-environment: &django-env
   MEDIA_ROOT: ${MEDIA_ROOT}
   GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
   GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+  TMDB_API_KEY: ${TMDB_API_KEY}
+  TMDB_READ_ACCESS_TOKEN: ${TMDB_READ_ACCESS_TOKEN}
 
 x-django-build: &django-build
   context: backend
   args:
     - DEPLOYMENT_ENVIRONMENT=${DEPLOYMENT_ENVIRONMENT}
+
+x-django-service: &django-service
+  build:
+      <<: *django-build
+  environment:
+      <<: *django-env
+  volumes:
+      - ./backend/src/:/app/src
 
 services:
   nginx:
@@ -32,16 +42,40 @@ services:
       - django_media:/www/media
 
   django:
-    build:
-      <<: *django-build
-    environment:
-      <<: *django-env
+    <<: *django-service
     depends_on:
       - postgres
-    volumes:
-      - ./backend/src/:/app/src
-      - django_static:${STATIC_ROOT}
-      - django_media:${MEDIA_ROOT}
+
+  celery:
+    <<: *django-service
+    command: celery -A config worker -l info --concurrency=4
+    depends_on:
+      - redis
+      - postgres
+
+  celery_beat:
+    <<: *django-service
+    command: >
+      celery -A config beat -l info
+    depends_on:
+      - redis
+      - postgres
+
+  flower:
+    <<: *django-service
+    command: celery -A config flower --port=5555
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+      - postgres
+    profiles:
+      - flower
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
 
   postgres:
     image: postgres:latest
@@ -49,6 +83,7 @@ services:
       <<: *postgres-env
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
 
 volumes:
   django_static:

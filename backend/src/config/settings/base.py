@@ -51,6 +51,7 @@ LOCAL_APPS = [
     "authentication",
     "demo",
     "films",
+    "integrations.tmdb",
     "recommendations",
     "reviews",
     "users",
@@ -126,6 +127,13 @@ DATABASES = {
 }
 
 
+# Celery
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/1"
+CELERY_TASK_ALWAYS_EAGER = False
+CELERY_TIMEZONE = "UTC"
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -192,3 +200,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("GOOGLE_CLIENT_ID")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 
 LOGIN_REDIRECT_URL = "/"
+
+
+# TMDB
+TMDB_API_KEY = os.environ.get("TMDB_API_KEY")
+TMDB_READ_ACCESS_TOKEN = os.environ.get("TMDB_READ_ACCESS_TOKEN")
