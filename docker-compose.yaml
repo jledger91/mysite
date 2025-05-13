@@ -15,14 +15,11 @@ x-django-environment: &django-env
   TMDB_API_KEY: ${TMDB_API_KEY}
   TMDB_READ_ACCESS_TOKEN: ${TMDB_READ_ACCESS_TOKEN}
 
-x-django-build: &django-build
-  context: backend
-  args:
-    - DEPLOYMENT_ENVIRONMENT=${DEPLOYMENT_ENVIRONMENT}
-
 x-django-service: &django-service
   build:
-      <<: *django-build
+    context: backend
+    args:
+      - DEPLOYMENT_ENVIRONMENT=${DEPLOYMENT_ENVIRONMENT}
   environment:
       <<: *django-env
   volumes:
@@ -32,7 +29,7 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - '0.0.0.0:80:80'
+      - "0.0.0.0:80:80"
     depends_on:
       - django
     volumes:
@@ -55,13 +52,12 @@ services:
 
   celery_beat:
     <<: *django-service
-    command: >
-      celery -A config beat -l info
+    command: celery -A config beat -l info
     depends_on:
       - redis
       - postgres
 
-  flower:
+  celery_flower:
     <<: *django-service
     command: celery -A config flower --port=5555
     ports:
@@ -83,7 +79,6 @@ services:
       <<: *postgres-env
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
 
 volumes:
   django_static:

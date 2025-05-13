@@ -1,5 +1,6 @@
 from celery.schedules import crontab
-from config.celery import app
+
+# from config.celery import app
 from ext.celery.schedules import setup_tasks_from_schedule
 from integrations.tmdb.tasks import sync_films
 
@@ -12,6 +13,6 @@ TASKS = {
 }
 
 
-@app.on_after_configure.connect
+# @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
     setup_tasks_from_schedule(sender, schedule=TASKS)

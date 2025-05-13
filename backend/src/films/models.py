@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 
 class Film(models.Model):
@@ -15,15 +15,24 @@ class Film(models.Model):
     )
 
     title = models.CharField(max_length=200, null=False)
-    poster = models.ImageField(upload_to="posters/", blank=True)
-    release_date = models.DateField()
-    duration = models.DurationField(blank=True)
-    synopsis = models.TextField(blank=True)
+    original_title = models.CharField(max_length=200, null=True, blank=True)
+    poster = models.ImageField(upload_to="posters/", null=True, blank=True)
+    release_date = models.DateField(null=True, blank=True)
+    duration = models.DurationField(null=True, blank=True)
+    synopsis = models.TextField(null=True, blank=True)
     rating = models.CharField(
         choices=RATING_CHOICES,
+        null=True,
         blank=True,
         max_length=3,
     )
+    tmdb_id = models.IntegerField(
+        unique=True,
+        db_index=True,
+        null=True,
+        blank=True,
+    )
+    has_synced_with_tmdb = models.BooleanField(default=False, db_default=False)
 
     def __str__(self):
         """

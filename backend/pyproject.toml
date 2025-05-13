@@ -14,10 +14,13 @@ factory-boy = "3.3.3"
 gunicorn = "23.0.0"
 psycopg2-binary = "2.9.10"
 pillow = "11.2.1"
-python = ">=3.13"
+python = ">=3.13,<4.0"
 social-auth-app-django = "5.4.3"
 celery = "^5.5.2"
 redis = "^6.0.0"
+backoff = "^2.2.1"
+ratelimit = "^2.2.1"
+pydantic = "^2.11.4"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
