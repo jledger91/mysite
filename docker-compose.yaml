@@ -24,6 +24,8 @@ x-django-service: &django-service
       <<: *django-env
   volumes:
       - ./backend/src/:/app/src
+      - django_static:${STATIC_ROOT}
+      - django_media:${MEDIA_ROOT}
 
 services:
   nginx:
