@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Iterator
 
+import pycountry
 import requests
 from django.conf import settings
 from integrations.tmdb.rate_limiter import tmdb_rate_limit
@@ -72,6 +73,16 @@ class TmdbApiClient:
             },
             **kwargs,
         )
+
+    def get_all_films(self) -> Iterator[list[dict[str, Any]]]:
+        for country in pycountry.countries:
+            for year in range(2000, 2024):
+                yield from self.get_films(
+                    params={
+                        "with_origin_country": country.alpha_2,
+                        "primary_release_year": year,
+                    },
+                )
 
     def get_film_detail(self, tmdb_id: int):
         return self.request("GET", f"/movie/{tmdb_id}")
