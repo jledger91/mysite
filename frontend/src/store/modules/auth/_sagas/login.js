@@ -4,7 +4,7 @@ import * as http from '../../../../utils/http';
 import { LOGIN, LOGGED_IN } from '../actions';
 
 function* login(action) {
-  const result = yield http.post('/api/login/', {
+  const result = yield http.post('/api/auth/login/', {
     username: action.payload.username,
     password: action.payload.password,
   });

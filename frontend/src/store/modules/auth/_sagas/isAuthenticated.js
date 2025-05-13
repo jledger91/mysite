@@ -4,7 +4,7 @@ import * as http from '../../../../utils/http';
 import { IS_AUTHENTICATED, LOGGED_IN } from '../actions';
 
 function* isAuthenticated() {
-  const result = yield http.post('/api/is_authenticated/');
+  const result = yield http.post('/api/auth/is_authenticated/');
   
   const { user } = result.json;
   
