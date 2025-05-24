@@ -1,3 +1,5 @@
+from datetime import date
+
 from pydantic import BaseModel, field_validator
 
 
@@ -6,7 +8,7 @@ class TmdbDiscoverFilm(BaseModel):
     title: str
     original_title: str
     original_language: str
-    release_date: str
+    release_date: str | date | None
     poster_path: str | None
     overview: str
 
@@ -14,11 +16,21 @@ class TmdbDiscoverFilm(BaseModel):
     popularity: float
     vote_average: float
 
+    @field_validator("release_date", mode="before")
+    def coerce_release_date(cls, value):
+        if isinstance(value, str):
+            try:
+                return date.fromisoformat(value)
+            except ValueError:
+                return None
+
+        return value
+
     def to_django_model_defaults(self):
         return {
             "title": self.title,
             "original_title": self.original_title,
-            "release_date": self.release_date or None,
+            "release_date": self.release_date,
             "synopsis": self.overview,
             "poster": self.poster_path,
             "has_synced_with_tmdb": True,

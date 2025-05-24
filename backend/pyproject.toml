@@ -22,6 +22,7 @@ backoff = "^2.2.1"
 ratelimit = "^2.2.1"
 pydantic = "^2.11.4"
 pycountry = "^24.6.1"
+more-itertools = "^10.7.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

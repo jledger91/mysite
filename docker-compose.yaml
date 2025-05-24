@@ -26,6 +26,9 @@ x-django-service: &django-service
       - ./backend/src/:/app/src
       - django_static:${STATIC_ROOT}
       - django_media:${MEDIA_ROOT}
+  depends_on:
+    - postgres
+    - redis
 
 services:
   nginx:
@@ -42,31 +45,20 @@ services:
 
   django:
     <<: *django-service
-    depends_on:
-      - postgres
 
   celery:
-    <<: *django-service
     command: celery -A config worker -l info --concurrency=4
-    depends_on:
-      - redis
-      - postgres
+    <<: *django-service
 
   celery_beat:
-    <<: *django-service
     command: celery -A config beat -l info
-    depends_on:
-      - redis
-      - postgres
+    <<: *django-service
 
   celery_flower:
-    <<: *django-service
     command: celery -A config flower --port=5555
+    <<: *django-service
     ports:
       - "5555:5555"
-    depends_on:
-      - redis
-      - postgres
     profiles:
       - flower
 

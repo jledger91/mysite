@@ -13,7 +13,7 @@ class FilmsViewSet(viewsets.ModelViewSet):
     queryset = (
         Film.objects.prefetch_related("review_set")
         .annotate(average_score=Avg("review__rating"))
-        .order_by("id")
+        .order_by("-release_date", "title")
     )
     serializer_class = FilmSerializer
     permission_classes = [IsStaffOrReadOnly]

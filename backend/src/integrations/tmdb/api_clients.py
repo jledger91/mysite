@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import datetime
+import logging
 from typing import TYPE_CHECKING, Any, Iterator
+from urllib.parse import urlencode
 
 import pycountry
 import requests
@@ -9,6 +12,8 @@ from integrations.tmdb.rate_limiter import tmdb_rate_limit
 
 if TYPE_CHECKING:
     from requests import Response
+
+logger = logging.getLogger(__name__)
 
 
 class TmdbApiClient:
@@ -32,6 +37,8 @@ class TmdbApiClient:
         raise_status_exception: bool = True,
         **kwargs,
     ) -> dict | Response:
+        logger.info(f"{method} - {endpoint}?{urlencode(kwargs.get("params", {}))}")
+
         response = self.session.request(method, f"{self.base_url}{endpoint}", **kwargs)
 
         if raise_status_exception:
@@ -74,13 +81,23 @@ class TmdbApiClient:
             **kwargs,
         )
 
-    def get_all_films(self) -> Iterator[list[dict[str, Any]]]:
-        for country in pycountry.countries:
-            for year in range(2000, 2024):
+    def get_all_films(
+        self, *, from_year: int | None = None, include_us: bool = True
+    ) -> Iterator[list[dict[str, Any]]]:
+        for year in reversed(
+            range(1888, (from_year or datetime.date.today().year) + 1)
+        ):
+            countries = (
+                pycountry.countries if include_us else set(pycountry.countries) - {"us"}
+            )
+            for country in countries:
                 yield from self.get_films(
                     params={
+                        "with_release_type": "3|2",
+                        "region": country.alpha_2,
                         "with_origin_country": country.alpha_2,
                         "primary_release_year": year,
+                        "sort_by": "popularity.desc",
                     },
                 )
 
